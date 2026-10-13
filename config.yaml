@@ -1,0 +1,9 @@
+seed: 42
+
+paths:
+  data_dir: data
+  artifacts_dir: artifacts
+
+cv:
+  n_splits: 5
+  n_repeats: 5
