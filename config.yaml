@@ -7,3 +7,7 @@ paths:
 cv:
   n_splits: 5
   n_repeats: 5
+
+dataset:
+  url: https://archive.ics.uci.edu/static/public/411/extention+of+z+alizadeh+sani+dataset.zip
+  filename: extention of Z-Alizadeh sani dataset.xlsx

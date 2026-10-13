@@ -5,7 +5,8 @@ import yaml
 
 from crvp.errors import ConfigError
 
-DEFAULT_CONFIG_PATH = Path(__file__).resolve().parents[2] / "config.yaml"
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config.yaml"
 
 
 def load_config(path: Path = DEFAULT_CONFIG_PATH) -> dict[str, Any]:
@@ -27,3 +28,15 @@ def load_config(path: Path = DEFAULT_CONFIG_PATH) -> dict[str, Any]:
     if not isinstance(config, dict):
         raise ConfigError(f"Config file must contain a mapping: {path}")
     return config
+
+
+def project_path(relative: str) -> Path:
+    """Resolve a config-relative path against the repository root.
+
+    Args:
+        relative: A path as written in ``config.yaml``, relative to the repo root.
+
+    Returns:
+        The absolute path, independent of the current working directory.
+    """
+    return PROJECT_ROOT / relative
