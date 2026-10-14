@@ -8,6 +8,7 @@ import type { VesselId } from "../api/types";
 import { CONTEXT_FILES, VESSELS, stlUrl } from "../data/vessels";
 import { ArteryMesh } from "./ArteryMesh";
 import { CameraRig, type ViewApi } from "./CameraRig";
+import { Loading } from "./Loading";
 import { ViewTools } from "./ViewTools";
 
 interface HeartViewerProps {
@@ -65,7 +66,7 @@ export function HeartViewer(props: HeartViewerProps) {
       <Canvas
         camera={{ position: [0, 0, 240], fov: 35, near: 1, far: 2000 }}
         onPointerMissed={() => props.onSelect(null)}
-        dpr={[1, 2]}
+        dpr={[1, 1.75]}
       >
         <ambientLight intensity={0.9} />
         <directionalLight position={[120, 160, 200]} intensity={2} />
@@ -90,6 +91,7 @@ export function HeartViewer(props: HeartViewerProps) {
           autoRotateSpeed={1.2}
         />
       </Canvas>
+      <Loading />
       <ViewTools
         autoRotate={autoRotate}
         onReset={() => view.current?.reset()}
