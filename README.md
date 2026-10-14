@@ -75,6 +75,14 @@ After `npm ci`, `node scripts/bake_heart_colours.mjs` rebuilds
 wall). `uv run python scripts/export_presets.py` rebuilds `web/public/presets.json` from the
 trained weights.
 
+## Deployment
+
+- **Backend:** a Hugging Face Space (Docker SDK). `scripts/build_space.sh <dir>` assembles the
+  Space from `deploy/space/` plus the source and committed weights; push that directory to the
+  Space's git remote. Nothing is retrained at build time.
+- **Frontend:** Vercel, root directory `web`, with `VITE_API_URL` set to the Space URL.
+  Browsers allowed to call the API are listed under `api` in `config.yaml`.
+
 ## Tests and lint
 
 ```bash
