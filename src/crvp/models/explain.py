@@ -84,6 +84,23 @@ def contributions(bundle: TargetBundle, x: pd.DataFrame) -> np.ndarray:
     return _explain(bundle.model, x[list(bundle.feature_columns)])[1]
 
 
+def serving_explanation(bundle: TargetBundle, x: pd.DataFrame) -> tuple[float, np.ndarray]:
+    """Base value and per-feature SHAP contributions from the serving model.
+
+    The base value plus the summed contributions is the raw score that the fitted calibration
+    curve converts to the displayed probability.
+
+    Args:
+        bundle: A trained bundle.
+        x: Encoded features containing at least ``bundle.feature_columns``.
+
+    Returns:
+        ``(base_value, values)`` where values has shape ``(n_rows, n_features)``.
+    """
+    raw, values = _explain(bundle.model, x[list(bundle.feature_columns)])
+    return float(raw[0] - values[0].sum()), values
+
+
 def fold_explanations(bundle: TargetBundle, x: pd.DataFrame) -> tuple[np.ndarray, np.ndarray]:
     """Probabilities and SHAP values from every CV fold model in a single pass.
 

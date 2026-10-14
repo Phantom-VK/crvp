@@ -91,6 +91,9 @@ class TargetPrediction(BaseModel):
     interval_low: float = Field(ge=0, le=1)
     interval_high: float = Field(ge=0, le=1)
     cv_roc_auc: float
+    base_value: float
+    other_features: float
+    raw_score: float
     contributions: list[Contribution]
 
 

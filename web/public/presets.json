@@ -73,6 +73,9 @@
             "interval_low": 0.019007605741307648,
             "interval_high": 0.26613548961038636,
             "cv_roc_auc": 0.9224854564799844,
+            "base_value": 0.713905390539054,
+            "other_features": -0.08558838702702604,
+            "raw_score": 0.29440740432407136,
             "contributions": [
               {
                 "feature": "Typical Chest Pain",
@@ -142,6 +145,9 @@
             "interval_low": 0.0468722929345839,
             "interval_high": 0.19047391810320025,
             "cv_roc_auc": 0.850021978021978,
+            "base_value": 0.5868976897689772,
+            "other_features": -0.08413838984952848,
+            "raw_score": 0.200654280904281,
             "contributions": [
               {
                 "feature": "Typical Chest Pain",
@@ -211,6 +217,9 @@
             "interval_low": 0.12322794432756388,
             "interval_high": 0.285290690924862,
             "cv_roc_auc": 0.7202055860208034,
+            "base_value": 0.3938613861386143,
+            "other_features": -0.04873103749458138,
+            "raw_score": 0.2137039442039446,
             "contributions": [
               {
                 "feature": "Age",
@@ -280,6 +289,9 @@
             "interval_low": 0.09703399091874672,
             "interval_high": 0.2000578879040548,
             "cv_roc_auc": 0.7046115181126622,
+            "base_value": 0.37484048404840536,
+            "other_features": -0.06900374174507182,
+            "raw_score": 0.1285046296296303,
             "contributions": [
               {
                 "feature": "Typical Chest Pain",
@@ -418,6 +430,9 @@
             "interval_low": 0.7882666806908417,
             "interval_high": 0.9487888039998223,
             "cv_roc_auc": 0.9224854564799844,
+            "base_value": 0.713905390539054,
+            "other_features": 0.042612123137002,
+            "raw_score": 0.7988849206349209,
             "contributions": [
               {
                 "feature": "Age",
@@ -487,6 +502,9 @@
             "interval_low": 0.733868866787364,
             "interval_high": 0.9079842262635779,
             "cv_roc_auc": 0.850021978021978,
+            "base_value": 0.5868976897689772,
+            "other_features": 0.04041399106911814,
+            "raw_score": 0.7816279461279466,
             "contributions": [
               {
                 "feature": "Region RWMA",
@@ -556,6 +574,9 @@
             "interval_low": 0.141089018343513,
             "interval_high": 0.35350007992054316,
             "cv_roc_auc": 0.7202055860208034,
+            "base_value": 0.3938613861386143,
+            "other_features": -0.06883346988989504,
+            "raw_score": 0.24411516955267,
             "contributions": [
               {
                 "feature": "Age",
@@ -625,6 +646,9 @@
             "interval_low": 0.1973165143075499,
             "interval_high": 0.4083822789012493,
             "cv_roc_auc": 0.7046115181126622,
+            "base_value": 0.37484048404840536,
+            "other_features": -0.0934583452709088,
+            "raw_score": 0.2653495481127066,
             "contributions": [
               {
                 "feature": "Age",
@@ -763,6 +787,9 @@
             "interval_low": 0.916461558689629,
             "interval_high": 0.9752879419064984,
             "cv_roc_auc": 0.9224854564799844,
+            "base_value": 0.713905390539054,
+            "other_features": 0.0533016306790117,
+            "raw_score": 0.8683144540644544,
             "contributions": [
               {
                 "feature": "Typical Chest Pain",
@@ -832,6 +859,9 @@
             "interval_low": 0.8714464411341255,
             "interval_high": 0.9495151672385155,
             "cv_roc_auc": 0.850021978021978,
+            "base_value": 0.5868976897689773,
+            "other_features": 0.08001644146357056,
+            "raw_score": 0.856728436657682,
             "contributions": [
               {
                 "feature": "Typical Chest Pain",
@@ -901,6 +931,9 @@
             "interval_low": 0.35132174898898516,
             "interval_high": 0.8303798865555684,
             "cv_roc_auc": 0.7202055860208034,
+            "base_value": 0.3938613861386144,
+            "other_features": 0.07153308575894432,
+            "raw_score": 0.6101904761904768,
             "contributions": [
               {
                 "feature": "Age",
@@ -970,6 +1003,9 @@
             "interval_low": 0.6034606731554616,
             "interval_high": 0.8440753443035559,
             "cv_roc_auc": 0.7046115181126622,
+            "base_value": 0.3748404840484053,
+            "other_features": 0.0776381023591694,
+            "raw_score": 0.7316994301994306,
             "contributions": [
               {
                 "feature": "ESR",
@@ -1108,6 +1144,9 @@
             "interval_low": 0.9820226726883527,
             "interval_high": 0.9887582254622868,
             "cv_roc_auc": 0.9224854564799844,
+            "base_value": 0.713905390539054,
+            "other_features": 0.04238533108345369,
+            "raw_score": 0.9684785954785957,
             "contributions": [
               {
                 "feature": "Typical Chest Pain",
@@ -1177,6 +1216,9 @@
             "interval_low": 0.9450554149248196,
             "interval_high": 0.97333277038892,
             "cv_roc_auc": 0.850021978021978,
+            "base_value": 0.5868976897689772,
+            "other_features": 0.058707041082170175,
+            "raw_score": 0.9359828042328046,
             "contributions": [
               {
                 "feature": "Region RWMA",
@@ -1246,6 +1288,9 @@
             "interval_low": 0.817044727347347,
             "interval_high": 0.9303765650988363,
             "cv_roc_auc": 0.7202055860208034,
+            "base_value": 0.3938613861386143,
+            "other_features": 0.10043492398666604,
+            "raw_score": 0.8180209859584864,
             "contributions": [
               {
                 "feature": "CR",
@@ -1315,6 +1360,9 @@
             "interval_low": 0.8008076436282923,
             "interval_high": 0.9197909328328452,
             "cv_roc_auc": 0.7046115181126622,
+            "base_value": 0.37484048404840536,
+            "other_features": 0.11014266408335949,
+            "raw_score": 0.8730927128427134,
             "contributions": [
               {
                 "feature": "NLR",
@@ -1453,6 +1501,9 @@
             "interval_low": 0.9630468098478981,
             "interval_high": 0.9831396404641394,
             "cv_roc_auc": 0.9224854564799844,
+            "base_value": 0.713905390539054,
+            "other_features": 0.08339514047335916,
+            "raw_score": 0.9479152236652236,
             "contributions": [
               {
                 "feature": "Typical Chest Pain",
@@ -1522,6 +1573,9 @@
             "interval_low": 0.9211615126892829,
             "interval_high": 0.9616057702044758,
             "cv_roc_auc": 0.850021978021978,
+            "base_value": 0.586897689768977,
+            "other_features": 0.06292183061622653,
+            "raw_score": 0.8778679653679655,
             "contributions": [
               {
                 "feature": "Region RWMA",
@@ -1591,6 +1645,9 @@
             "interval_low": 0.6681966666273383,
             "interval_high": 0.8918548458876986,
             "cv_roc_auc": 0.7202055860208034,
+            "base_value": 0.3938613861386143,
+            "other_features": 0.0381600071551399,
+            "raw_score": 0.7522366522366525,
             "contributions": [
               {
                 "feature": "Age",
@@ -1660,6 +1717,9 @@
             "interval_low": 0.6264110453477231,
             "interval_high": 0.8512087286181595,
             "cv_roc_auc": 0.7046115181126622,
+            "base_value": 0.3748404840484054,
+            "other_features": 0.043544262465865624,
+            "raw_score": 0.7433944099378889,
             "contributions": [
               {
                 "feature": "NLR",
@@ -1798,6 +1858,9 @@
             "interval_low": 0.2794435399916066,
             "interval_high": 0.8662183580396055,
             "cv_roc_auc": 0.9224854564799844,
+            "base_value": 0.713905390539054,
+            "other_features": -0.037352326678200265,
+            "raw_score": 0.5443654401154401,
             "contributions": [
               {
                 "feature": "Age",
@@ -1867,6 +1930,9 @@
             "interval_low": 0.18302825030017766,
             "interval_high": 0.6883349120877578,
             "cv_roc_auc": 0.850021978021978,
+            "base_value": 0.5868976897689772,
+            "other_features": 0.005273267034735379,
+            "raw_score": 0.44199338624338635,
             "contributions": [
               {
                 "feature": "Age",
@@ -1936,6 +2002,9 @@
             "interval_low": 0.15054104681184935,
             "interval_high": 0.3881941299558084,
             "cv_roc_auc": 0.7202055860208034,
+            "base_value": 0.3938613861386143,
+            "other_features": -0.04968325557334999,
+            "raw_score": 0.245097883597884,
             "contributions": [
               {
                 "feature": "Age",
@@ -2005,6 +2074,9 @@
             "interval_low": 0.1393610975355103,
             "interval_high": 0.23013869361370712,
             "cv_roc_auc": 0.7046115181126622,
+            "base_value": 0.37484048404840536,
+            "other_features": -0.06331424086294948,
+            "raw_score": 0.1623264143264149,
             "contributions": [
               {
                 "feature": "Age",

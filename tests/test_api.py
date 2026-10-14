@@ -59,6 +59,14 @@ def test_predict_explains_with_known_features_largest_first(client, payload, con
         assert all(c["spread"] >= 0 and math.isfinite(c["value"]) for c in shown)
 
 
+def test_waterfall_parts_add_up_to_the_raw_score(client, payload):
+    predictions = client.post("/predict", json=payload).json()["predictions"]
+    for prediction in predictions.values():
+        shown = sum(c["value"] for c in prediction["contributions"])
+        total = prediction["base_value"] + shown + prediction["other_features"]
+        assert total == pytest.approx(prediction["raw_score"], abs=1e-9)
+
+
 def test_predict_is_deterministic(client, payload):
     first = client.post("/predict", json=payload).json()
     assert client.post("/predict", json=payload).json() == first

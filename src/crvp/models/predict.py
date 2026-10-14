@@ -7,7 +7,7 @@ from crvp.config import project_path
 from crvp.data.features import encode_features
 from crvp.data.schema import BLOCK_OF, TARGETS
 from crvp.models.artifacts import TargetBundle, load_bundle, load_cv_auc
-from crvp.models.explain import contributions, fold_explanations, warm_up
+from crvp.models.explain import fold_explanations, serving_explanation, warm_up
 
 
 class Predictor:
@@ -56,8 +56,9 @@ class Predictor:
             patient: A single raw row with every feature column. Target columns are ignored.
 
         Returns:
-            Per target: algorithm, probability, uncertainty band, cross-validated AUC and
-            the largest SHAP contributions with their spread across CV folds.
+            Per target: algorithm, probability, uncertainty band, cross-validated AUC, the
+            largest SHAP contributions with their spread across CV folds, and the base value,
+            remainder from all other features and raw score they add up to.
         """
         x = encode_features(patient)
         return {target: self._predict_target(target, x) for target in TARGETS}
@@ -67,20 +68,24 @@ class Predictor:
         bundle = self._bundles[target]
         fold_probabilities, fold_values = fold_explanations(bundle, x)
         low, high = np.percentile(fold_probabilities, self._settings["uncertainty_percentiles"])
+        base, values = serving_explanation(bundle, x)
+        shown = self._top_contributions(bundle, values[0], fold_values[:, 0].std(axis=0))
         return {
             "algorithm": bundle.algorithm,
             "probability": float(bundle.predict_proba(x)[0]),
             "interval_low": float(low),
             "interval_high": float(high),
             "cv_roc_auc": self._cv_auc[target],
-            "contributions": self._top_contributions(bundle, x, fold_values[:, 0].std(axis=0)),
+            "base_value": base,
+            "other_features": float(values[0].sum() - sum(c["value"] for c in shown)),
+            "raw_score": float(base + values[0].sum()),
+            "contributions": shown,
         }
 
     def _top_contributions(
-        self, bundle: TargetBundle, x: pd.DataFrame, spread: np.ndarray
+        self, bundle: TargetBundle, values: np.ndarray, spread: np.ndarray
     ) -> list[dict[str, Any]]:
         """The largest SHAP contributions by magnitude, with fold-to-fold spread."""
-        values = contributions(bundle, x)[0]
         order = np.argsort(-np.abs(values))[: self._settings["top_contributions"]]
         return [
             {
