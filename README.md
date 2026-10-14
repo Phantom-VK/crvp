@@ -9,7 +9,8 @@ interactive 3D heart. Each probability comes with a SHAP explanation of which in
 up or down, a likely range from 25 cross-validation refits, and a plain statement of how far
 it can be trusted.
 
-- **Live demo:** _URL added after deployment_
+- **Live API:** https://uh99tuxt1l.execute-api.ap-south-1.amazonaws.com (`/health`, `/predict`)
+- **Live demo:** _frontend URL added after the Vercel deploy_
 - **Source:** https://github.com/Phantom-VK/crvp
 
 > **Decision support and education only.** CRVP is a research prototype built for a hackathon.
@@ -78,10 +79,9 @@ trained weights. The "Model & validation" panel reads `web/src/data/metrics.json
 
 ## Deployment
 
-- **Backend:** a Hugging Face Space (Docker SDK). `scripts/build_space.sh <dir>` assembles the
-  Space from `deploy/space/` plus the source and committed weights; push that directory to the
-  Space's git remote. Nothing is retrained at build time.
-- **Frontend:** Vercel, root directory `web`, with `VITE_API_URL` set to the Space URL.
+- **Backend:** one EC2 instance behind an API Gateway HTTP API on AWS, set up as described in
+  [`deploy/aws`](deploy/aws/README.md). The weights come from this repo; nothing is retrained.
+- **Frontend:** Vercel, root directory `web`, with `VITE_API_URL` set to the API URL.
   Browsers allowed to call the API are listed under `api` in `config.yaml`.
 
 ## Tests and lint
