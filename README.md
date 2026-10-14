@@ -10,7 +10,7 @@ up or down, a likely range from 25 cross-validation refits, and a plain statemen
 it can be trusted.
 
 - **Live API:** https://uh99tuxt1l.execute-api.ap-south-1.amazonaws.com (`/health`, `/predict`)
-- **Live demo:** _frontend URL added after the Vercel deploy_
+- **Live demo:** https://crvp.vercel.app
 - **Source:** https://github.com/Phantom-VK/crvp
 
 > **Decision support and education only.** CRVP is a research prototype built for a hackathon.
