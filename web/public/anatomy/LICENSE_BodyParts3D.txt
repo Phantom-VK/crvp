@@ -1,0 +1,26 @@
+BodyParts3D anatomical meshes (STL files in this directory)
+
+Credit (required):
+BodyParts3D, (c) The Database Center for Life Science, licensed under CC Attribution-Share
+Alike 2.1 Japan.
+
+Licence: https://creativecommons.org/licenses/by-sa/2.1/jp/deed.en
+Project: https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html
+Data archive DOI: http://doi.org/10.18908/lsdba.nbdc00837-000
+
+Citation:
+Mitsuhashi N, Fujieda K, Tamura T, Kawamoto S, Takagi T, Okubo K.
+BodyParts3D: 3D structure database for anatomical concepts.
+Nucleic Acids Res. 2009;37(Database issue):D782-5. https://doi.org/10.1093/nar/gkn613
+
+Source of these files: binary STL conversions of BodyParts3D v3.0 (20110915) published at
+https://github.com/Kevin-Mattheus-Moerman/BodyParts3D (assets/BodyParts3D_data/stl/).
+The meshes are unmodified.
+
+FMA3862nsn  anterior interventricular branch of left coronary artery (LAD)
+FMA3895     circumflex branch of left coronary artery (LCX)
+FMA3802     right coronary artery trunk       \
+FMA3818     marginal branch                   |  grouped as RCA
+FMA3840nsn  posterior interventricular branch |
+FMA76994    right posterolateral branch       /
+FMA4685     stem of left coronary artery (context only, not a prediction target)
