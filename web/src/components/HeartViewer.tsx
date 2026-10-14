@@ -80,7 +80,7 @@ export function HeartViewer(props: HeartViewerProps) {
         <OrbitControls
           makeDefault
           enablePan={false}
-          enableZoom={false}
+          enableZoom
           enableDamping
           dampingFactor={0.08}
           minPolarAngle={Math.PI * 0.25}

@@ -10,7 +10,7 @@ export function Attribution() {
       </p>
       <p>
         Trained on the{" "}
-        <a href="https://archive.ics.uci.edu/dataset/412" target="_blank" rel="noreferrer">
+        <a href="https://archive.ics.uci.edu/dataset/411" target="_blank" rel="noreferrer">
           Z-Alizadeh Sani CAD dataset
         </a>{" "}
         (UCI, CC BY 4.0).
