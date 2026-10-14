@@ -31,7 +31,7 @@ export function TargetDetail({ id, prediction, patient, example }: Props) {
         <strong>{note.label}.</strong> {note.text}
         {isLowConfidence(id, prediction.cv_roc_auc) && <span className="badge">Low confidence</span>}
       </p>
-      <ShapPanel prediction={prediction} patient={patient} />
+      <ShapPanel prediction={prediction} patient={patient} subject={id === "Cath" ? "coronary disease" : "narrowing in this artery"} />
     </section>
   );
 }

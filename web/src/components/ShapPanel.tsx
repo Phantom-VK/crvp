@@ -5,6 +5,27 @@ import { percent } from "../data/vessels";
 interface Props {
   prediction: TargetPrediction;
   patient: PatientValues;
+  subject: string;
+}
+
+// 5 folds x 5 repeats of cross-validation, each refit on a different subset of the patients.
+const REFIT_COUNT = 25;
+const CONSISTENT_BELOW = 0.33;
+const VARIES_BELOW = 0.75;
+
+type Stability = "consistent" | "varies" | "unstable";
+
+const STABILITY_TEXT: Record<Stability, string> = {
+  consistent: "consistent",
+  varies: "varies between refits",
+  unstable: "unstable — read with caution",
+};
+
+/** Turn a contribution's spread across refits into a word, so no one has to read it as an interval. */
+function stability(value: number, spread: number): Stability {
+  const ratio = spread / Math.max(Math.abs(value), Number.EPSILON);
+  if (ratio < CONSISTENT_BELOW) return "consistent";
+  return ratio < VARIES_BELOW ? "varies" : "unstable";
 }
 
 interface Step {
@@ -12,7 +33,7 @@ interface Step {
   label: string;
   caption: string;
   value: number;
-  spread: number;
+  stability: Stability | null;
   start: number;
   end: number;
 }
@@ -21,19 +42,19 @@ const isProbability = (prediction: TargetPrediction): boolean => prediction.algo
 
 function steps(prediction: TargetPrediction, patient: PatientValues): Step[] {
   let running = prediction.base_value;
-  const rows = prediction.contributions.map((c: Contribution) => ({
+  const rows: Omit<Step, "start" | "end">[] = prediction.contributions.map((c: Contribution) => ({
     key: c.feature,
     label: featureLabel(c.feature),
     caption: [describeValue(c.feature, patient), BLOCK_TITLES[c.block]].filter(Boolean).join(" · "),
     value: c.value,
-    spread: c.spread,
+    stability: stability(c.value, c.spread),
   }));
   rows.push({
     key: "other",
     label: "All other features",
     caption: "combined",
     value: prediction.other_features,
-    spread: 0,
+    stability: null,
   });
   return rows.map((row) => {
     const step = { ...row, start: running, end: running + row.value };
@@ -74,17 +95,11 @@ function Bar({ step, domain }: { step: Step; domain: [number, number] }) {
         className={`shap__bar shap__bar--${direction}`}
         style={{ left: at(low), width: `${(Math.abs(step.value) / span) * 100}%` }}
       />
-      {step.spread > 0 && (
-        <span
-          className="shap__whisker"
-          style={{ left: at(step.end - step.spread), width: `${((2 * step.spread) / span) * 100}%` }}
-        />
-      )}
     </span>
   );
 }
 
-export function ShapPanel({ prediction, patient }: Props) {
+export function ShapPanel({ prediction, patient, subject }: Props) {
   const probability = isProbability(prediction);
   const rows = steps(prediction, patient);
   const path = [prediction.base_value, prediction.raw_score, ...rows.flatMap((r) => [r.start, r.end])];
@@ -95,10 +110,29 @@ export function ShapPanel({ prediction, patient }: Props) {
     <section className="shap" aria-label="Why the model says this">
       <h3>What moved the estimate</h3>
       <p className="shap__lead">
-        Starting from the average patient ({plain(prediction.base_value, probability)}), each factor moves the model&apos;s
-        score up (terracotta) or down (blue). {probability ? "Distances are in percentage points of probability." : "Distances are in log-odds."}{" "}
-        Thin lines show how much each contribution varies across model refits.
+        Every patient starts at the average risk of {subject} ({plain(prediction.base_value, probability)}). Each factor below
+        moves that estimate up or down; the bars show by how much. &lsquo;Consistent&rsquo; means the factor had the same
+        effect when the model was refitted on {REFIT_COUNT} different subsets of patients.
       </p>
+      <p className="shap__key">
+        <span className="shap__item">
+          <span className="shap__swatch shap__swatch--raise" aria-hidden="true" />
+          raises the estimate (terracotta)
+        </span>
+        <span className="shap__item">
+          <span className="shap__swatch shap__swatch--lower" aria-hidden="true" />
+          lowers it (slate blue)
+        </span>
+        <span className="shap__item">{probability ? "distances in percentage points" : "distances in log-odds"}</span>
+      </p>
+      <details className="shap__how">
+        <summary>How to read this</summary>
+        <ul>
+          <li>Each bar starts where the previous one ended, so the bars add up from the average patient to the model score.</li>
+          <li>The black tick marks a total: the average patient at the top, the model score at the bottom.</li>
+          <li>The word at the end of a row says how stable that factor is across refits. Treat an unstable factor as weak evidence.</li>
+        </ul>
+      </details>
       <ol className="shap__rows">
         <li className="shap__row shap__row--ends">
           <span className="shap__label">
@@ -114,6 +148,9 @@ export function ShapPanel({ prediction, patient }: Props) {
             <span className="shap__label">
               <strong>{row.label}</strong>
               <small>{row.caption}</small>
+              {row.stability && (
+                <span className={`chip chip--${row.stability}`}>{STABILITY_TEXT[row.stability]}</span>
+              )}
             </span>
             <Bar step={row} domain={domain} />
             <span className="shap__value">{signed(row.value, probability)}</span>

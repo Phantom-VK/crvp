@@ -549,6 +549,67 @@ input[type="number"]:focus {
   font-weight: 600;
 }
 
+.chip {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.chip--unstable {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.shap__key {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 16px;
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.shap__swatch {
+  display: inline-block;
+  width: 14px;
+  height: 8px;
+}
+
+.shap__swatch--raise {
+  background: var(--raise);
+}
+
+.shap__swatch--lower {
+  background: var(--lower);
+}
+
+.shap__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.shap__how {
+  margin-top: 10px;
+  font-size: 0.85rem;
+}
+
+.shap__how summary {
+  cursor: pointer;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.shap__how ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+
 .shap__row--total {
   border-top-color: var(--rule-strong);
 }
@@ -566,14 +627,6 @@ input[type="number"]:focus {
 
 .shap__bar--lower {
   background: var(--lower);
-}
-
-.shap__whisker {
-  position: absolute;
-  top: 5px;
-  height: 2px;
-  background: var(--ink);
-  opacity: 0.55;
 }
 
 .shap__mark {

@@ -164,6 +164,6 @@ export function describeValue(feature: string, values: PatientValues): string | 
   if (!spec || value === undefined || value === "") return null;
   const { type } = spec;
   if (type.kind === "number") return `${value}\u00A0${type.unit}`;
-  if (type.kind === "flag") return value === type.yes ? "yes" : "no";
+  if (type.kind === "flag") return value === type.yes ? "present" : "absent";
   return type.options.find((option) => option.value === value)?.label ?? String(value);
 }
