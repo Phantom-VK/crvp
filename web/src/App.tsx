@@ -4,6 +4,7 @@ import { DataBanner } from "./components/DataBanner";
 import { HeartViewer } from "./components/HeartViewer";
 import { Honesty } from "./components/Honesty";
 import { LegalBar } from "./components/LegalBar";
+import { ModelPanel } from "./components/ModelPanel";
 import { PatientDrawer } from "./components/PatientDrawer";
 import { TargetDetail } from "./components/TargetDetail";
 import { TargetRail } from "./components/TargetRail";
@@ -19,6 +20,7 @@ export function App() {
   const patient = usePatient();
   const [selected, setSelected] = useState<TargetId>("Cath");
   const drawer = useRef<HTMLDialogElement>(null);
+  const modelPanel = useRef<HTMLDialogElement>(null);
   const { predictions } = patient;
   const exampleLabel = patient.presets.find((preset) => preset.id === patient.presetId)?.label ?? "";
   const vessel: VesselId | null = selected === "Cath" ? null : selected;
@@ -30,7 +32,7 @@ export function App() {
 
   return (
     <div className="shell">
-      <TopBar onOpenData={() => drawer.current?.showModal()} />
+      <TopBar onOpenData={() => drawer.current?.showModal()} onOpenModel={() => modelPanel.current?.showModal()} />
       <DataBanner origin={patient.origin} exampleLabel={exampleLabel} notice={patient.notice} />
 
       <div className="workspace">
@@ -64,6 +66,7 @@ export function App() {
       </div>
 
       <LegalBar />
+      <ModelPanel dialogRef={modelPanel} />
       <PatientDrawer
         dialogRef={drawer}
         values={patient.values}

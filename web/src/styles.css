@@ -928,3 +928,125 @@ input[type="number"]:focus {
   background: var(--accent);
   transition: width 150ms var(--ease-out);
 }
+
+/* Model & validation panel */
+.drawer--wide {
+  width: min(920px, 100vw);
+}
+
+.model-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.model-table caption {
+  text-align: left;
+  color: var(--muted);
+  padding-bottom: 8px;
+}
+
+.model-table th,
+.model-table td {
+  padding: 8px 10px 8px 0;
+  border-top: 1px solid var(--rule);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.model-table thead th {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.model-table th:first-child {
+  text-align: left;
+}
+
+.model-table tbody th {
+  font-weight: 600;
+}
+
+.model-table tbody th span {
+  display: block;
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 0.78rem;
+}
+
+.model-table-wrap {
+  overflow-x: auto;
+}
+
+.auc-grid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 20px 32px;
+}
+
+.auc-group h4 {
+  margin: 0 0 6px;
+  font: 600 0.85rem var(--sans);
+}
+
+.auc-row {
+  display: grid;
+  grid-template-columns: 12rem 1fr 3.2rem;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+  border-top: 1px solid var(--rule);
+  font-size: 0.85rem;
+}
+
+.auc-row__name {
+  white-space: nowrap;
+}
+
+.auc-row__name em {
+  margin-left: 6px;
+  color: var(--accent);
+  font-style: normal;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.auc-row__track {
+  height: 8px;
+  background: var(--rule);
+}
+
+.auc-row__fill {
+  display: block;
+  height: 100%;
+  background: var(--rule-strong);
+}
+
+.auc-row[data-chosen="true"] .auc-row__fill {
+  background: var(--accent);
+}
+
+.auc-row__value {
+  text-align: right;
+}
+
+.method {
+  margin: 10px 0 0;
+  padding-left: 1.1em;
+  display: grid;
+  gap: 8px;
+  max-width: 70ch;
+}
+
+@media (max-width: 640px) {
+  .auc-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .auc-row {
+    grid-template-columns: 8rem 1fr 3rem;
+  }
+}

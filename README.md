@@ -73,7 +73,8 @@ UI says so.
 After `npm ci`, `node scripts/bake_heart_colours.mjs` rebuilds
 `web/public/anatomy/heartwall-colors.bin` (the per-vertex muscle and fat colours of the heart
 wall). `uv run python scripts/export_presets.py` rebuilds `web/public/presets.json` from the
-trained weights.
+trained weights. The "Model & validation" panel reads `web/src/data/metrics.json`, a copy of
+`artifacts/metrics.json`; copy it again after retraining.
 
 ## Deployment
 
