@@ -12,6 +12,7 @@ it can be trusted.
 - **Live API:** https://uh99tuxt1l.execute-api.ap-south-1.amazonaws.com (`/health`, `/predict`)
 - **Live demo:** https://crvp.vercel.app
 - **Source:** https://github.com/Phantom-VK/crvp
+- **Write-up:** [`docs/writeup.pdf`](docs/writeup.pdf) (also as [Markdown](docs/writeup.md))
 
 > **Decision support and education only.** CRVP is a research prototype built for a hackathon.
 > It is not a medical device and is not a substitute for clinical judgement or for
