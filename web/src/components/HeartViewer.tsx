@@ -61,7 +61,7 @@ export function HeartViewer(props: HeartViewerProps) {
           <Anatomy {...props} />
         </Bounds>
       </Suspense>
-      <OrbitControls makeDefault enablePan={false} minDistance={60} maxDistance={400} />
+      <OrbitControls makeDefault enablePan={false} enableZoom={false} />
     </Canvas>
   );
 }

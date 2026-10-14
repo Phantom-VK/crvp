@@ -14,6 +14,9 @@ export interface TargetPrediction {
   interval_low: number;
   interval_high: number;
   cv_roc_auc: number;
+  base_value: number;
+  other_features: number;
+  raw_score: number;
   contributions: Contribution[];
 }
 

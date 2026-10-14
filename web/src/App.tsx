@@ -1,83 +1,93 @@
-import { useEffect, useState } from "react";
-import type { Predictions, Preset, PresetFile, VesselId } from "./api/types";
+import { useState } from "react";
+import type { Predictions, TargetId, VesselId } from "./api/types";
 import { Attribution } from "./components/Attribution";
+import { Disclaimer } from "./components/Disclaimer";
 import { HeartViewer } from "./components/HeartViewer";
-import { VesselLegend } from "./components/VesselLegend";
-import { percent } from "./data/vessels";
+import { Honesty } from "./components/Honesty";
+import { PatientForm } from "./components/PatientForm";
+import { RiskSummary } from "./components/RiskSummary";
+import { ShapPanel } from "./components/ShapPanel";
+import { type Origin, usePatient } from "./hooks/usePatient";
 
-const PRESETS_URL = `${import.meta.env.BASE_URL}presets.json`;
+const EXPLAINED_TITLE: Record<TargetId, string> = {
+  Cath: "the model estimates coronary disease",
+  LAD: "the model estimates LAD narrowing",
+  LCX: "the model estimates LCX narrowing",
+  RCA: "the model estimates RCA narrowing",
+};
 
-function vesselProbabilities(predictions: Predictions | null): Partial<Record<VesselId, number>> {
+const ORIGIN_TEXT: Record<Origin, string> = {
+  stored: "Stored result for this example patient. Real patients from the training set, so these scores are optimistic.",
+  live: "Calculated just now by the prediction service for the values in the form below.",
+  fallback: "Prediction service unavailable.",
+  stale: "Inputs edited.",
+};
+
+function vesselProbabilities(predictions: Predictions | null) {
   if (!predictions) return {};
-  return {
-    LAD: predictions.LAD.probability,
-    LCX: predictions.LCX.probability,
-    RCA: predictions.RCA.probability,
-  };
+  return { LAD: predictions.LAD.probability, LCX: predictions.LCX.probability, RCA: predictions.RCA.probability };
 }
 
 export function App() {
-  const [file, setFile] = useState<PresetFile | null>(null);
-  const [presetId, setPresetId] = useState<string>("");
-  const [selected, setSelected] = useState<VesselId | null>(null);
-
-  useEffect(() => {
-    fetch(PRESETS_URL)
-      .then((response) => response.json() as Promise<PresetFile>)
-      .then((loaded) => {
-        setFile(loaded);
-        setPresetId(loaded.presets[0]?.id ?? "");
-      })
-      .catch(() => setFile(null));
-  }, []);
-
-  const preset: Preset | undefined = file?.presets.find((candidate) => candidate.id === presetId);
-  const predictions = preset?.prediction.predictions ?? null;
-  const detail = selected && predictions ? predictions[selected] : null;
+  const patient = usePatient();
+  const [selected, setSelected] = useState<TargetId | null>(null);
+  const explained: TargetId = selected ?? "Cath";
+  const vessel: VesselId | null = selected && selected !== "Cath" ? selected : null;
+  const { predictions } = patient;
 
   return (
     <div className="app">
-      <header className="app__header">
-        <div>
-          <h1>CRVP</h1>
-          <p>Coronary risk and per-vessel stenosis estimates from clinical data</p>
-        </div>
-        <label className="preset">
+      <a className="skip" href="#patient-data">
+        Skip to patient data
+      </a>
+      <header className="masthead">
+        <h1>CRVP</h1>
+        <p>Coronary disease and per-vessel stenosis estimates from clinical data</p>
+      </header>
+
+      <section className="example" aria-label="Example patient">
+        <label>
           <span>Example patient</span>
-          <select value={presetId} onChange={(event) => setPresetId(event.target.value)}>
-            {file?.presets.map((candidate) => (
-              <option key={candidate.id} value={candidate.id}>
-                {candidate.label}
+          <select value={patient.presetId} onChange={(event) => patient.choosePreset(event.target.value)}>
+            {patient.presets.map((preset) => (
+              <option key={preset.id} value={preset.id}>
+                {preset.label}
               </option>
             ))}
           </select>
-          <small>Real patients from the training set, so these scores are optimistic.</small>
         </label>
-      </header>
-
-      <main className="app__main">
-        <div className="viewer">
-          <HeartViewer probabilities={vesselProbabilities(predictions)} selected={selected} onSelect={setSelected} />
-          <p className="viewer__hint">Drag to rotate · scroll to zoom · click a vessel</p>
+        <p className="example__status" data-origin={patient.origin} aria-live="polite">
+          {ORIGIN_TEXT[patient.origin]}
+        </p>
+        <div aria-live="polite" className="example__notice-slot">
+          {patient.notice && <p className="example__notice">{patient.notice}</p>}
         </div>
-        <aside className="side">
-          <VesselLegend predictions={predictions} selected={selected} onSelect={setSelected} />
-          {detail && selected && (
-            <section className="detail">
-              <h2>{selected}</h2>
-              <p className="detail__value">{percent(detail.probability)}</p>
-              <p>
-                Likely range {percent(detail.interval_low)}–{percent(detail.interval_high)} · cross-validated AUC{" "}
-                {detail.cv_roc_auc.toFixed(2)}
-              </p>
-            </section>
-          )}
-          <p className="caveat">
-            Colours show each vessel&apos;s own model estimate. No input to the model localises disease to a particular
-            artery, so differences between vessels reflect base rates and overall disease burden, not anatomy.
-          </p>
-        </aside>
+      </section>
+
+      <main className="stage">
+        <div className="viewer">
+          <HeartViewer
+            probabilities={vesselProbabilities(predictions)}
+            selected={vessel}
+            onSelect={setSelected}
+          />
+          <p className="viewer__hint">Drag to rotate · click a vessel</p>
+        </div>
+        {predictions && <RiskSummary predictions={predictions} selected={selected} onSelect={setSelected} />}
       </main>
+
+      {predictions && (
+        <ShapPanel title={EXPLAINED_TITLE[explained]} prediction={predictions[explained]} patient={patient.values} />
+      )}
+      <Honesty />
+
+      <section className="inputs" id="patient-data" aria-label="Patient data">
+        <h2>Patient data</h2>
+        <p>Edit any value and press Estimate risk. Field names follow the published dataset.</p>
+        <PatientForm values={patient.values} busy={patient.busy} onChange={patient.edit} onSubmit={patient.submit} />
+      </section>
+
+      <Disclaimer />
       <Attribution />
     </div>
   );
