@@ -3,6 +3,7 @@ seed: 42
 paths:
   data_dir: data
   artifacts_dir: artifacts
+  presets: web/public/presets.json
 
 cv:
   n_splits: 5
@@ -33,3 +34,12 @@ models:
     learning_rate: 0.05
     max_iter: 150
     l2_regularization: 1.0
+
+predict:
+  top_contributions: 10
+  uncertainty_percentiles: [10, 90]
+
+api:
+  cors_origins:
+    - http://localhost:5173
+  cors_origin_regex: https://.*\.vercel\.app

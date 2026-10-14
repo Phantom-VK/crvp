@@ -6,12 +6,12 @@ from sklearn.pipeline import Pipeline
 
 from crvp.config import load_config
 from crvp.errors import ModelError
-from crvp.models.artifacts import TargetBundle, load_bundle, save_bundle
+from crvp.models.artifacts import TargetBundle, base_estimator, load_bundle, save_bundle
 from crvp.models.evaluate import METRICS
 from crvp.models.explain import (
-    _base_estimator,
     contribution_spread,
     contributions,
+    fold_explanations,
     global_importance,
 )
 from crvp.models.registry import ALGORITHMS, build_calibrated, build_estimator
@@ -159,7 +159,7 @@ def test_contributions_are_additive(separable, config, algorithm):
     x, y = separable
     model = build_calibrated(algorithm, config).fit(x, y)
     bundle = TargetBundle("T", algorithm, tuple(x.columns), model, [model])
-    estimator = _base_estimator(model)
+    estimator = base_estimator(model)
     reconstructed = _base_value(estimator) + contributions(bundle, x).sum(axis=1)
     assert reconstructed == pytest.approx(_raw_output(estimator, x), abs=1e-6)
 
@@ -170,3 +170,13 @@ def test_contribution_spread_shapes(bundle_and_report, separable):
     mean, std = contribution_spread(bundle, x.head(3))
     assert mean.shape == std.shape == (3, N_FEATURES)
     assert (std >= 0).all()
+
+
+@pytest.mark.parametrize("algorithm", ALGORITHMS)
+def test_fold_probabilities_from_shap_match_direct_prediction(separable, config, algorithm):
+    x, y = separable
+    result = cross_validate(algorithm, x, y, config)
+    bundle = TargetBundle("T", algorithm, tuple(x.columns), result.models[0], result.models)
+    probabilities, values = fold_explanations(bundle, x.head(5))
+    assert probabilities == pytest.approx(bundle.fold_probabilities(x.head(5)), abs=1e-9)
+    assert values.shape == (len(result.models), 5, N_FEATURES)

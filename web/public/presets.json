@@ -1,0 +1,2075 @@
+{
+  "note": "Each preset is a real patient from the published training dataset, so its prediction is in-sample and optimistic. Presets demonstrate the interface; they are not a validation.",
+  "presets": [
+    {
+      "id": "no_disease",
+      "label": "No coronary disease",
+      "description": "Normal angiography and no regional wall-motion abnormality; highest EF.",
+      "angiography": {
+        "Cath": false,
+        "LAD": false,
+        "LCX": false,
+        "RCA": false
+      },
+      "patient": {
+        "Age": 68,
+        "Weight": 59,
+        "Length": 161,
+        "BMI": 22.76146753597469,
+        "BP": 115,
+        "PR": 70,
+        "Function Class": 0,
+        "FBS": 84,
+        "CR": 0.9,
+        "TG": 114,
+        "LDL": 91,
+        "HDL": 31.0,
+        "BUN": 23,
+        "ESR": 12,
+        "HB": 13.0,
+        "K": 4.6,
+        "Na": 141,
+        "WBC": 4900,
+        "Lymph": 35,
+        "Neut": 60,
+        "PLT": 194,
+        "EF-TTE": 60,
+        "Region RWMA": 0,
+        "DM": 0,
+        "HTN": 0,
+        "Current Smoker": 0,
+        "EX-Smoker": 0,
+        "FH": 1,
+        "Edema": 0,
+        "Typical Chest Pain": 0,
+        "Q Wave": 0,
+        "St Elevation": 0,
+        "St Depression": 0,
+        "Tinversion": 0,
+        "Obesity": "N",
+        "CRF": "N",
+        "CVA": "N",
+        "Airway disease": "N",
+        "Thyroid Disease": "N",
+        "DLP": "Y",
+        "Weak Peripheral Pulse": "N",
+        "Lung rales": "N",
+        "Systolic Murmur": "N",
+        "Diastolic Murmur": "N",
+        "Dyspnea": "N",
+        "Atypical": "Y",
+        "Nonanginal": "N",
+        "LVH": "N",
+        "Poor R Progression": "N",
+        "Sex": "Female",
+        "BBB": "N",
+        "VHD": "N"
+      },
+      "prediction": {
+        "predictions": {
+          "Cath": {
+            "algorithm": "random_forest",
+            "probability": 0.060245229008991714,
+            "interval_low": 0.019007605741307648,
+            "interval_high": 0.26613548961038636,
+            "cv_roc_auc": 0.9224854564799844,
+            "contributions": [
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": -0.10989336126634917,
+                "spread": 0.009690887108757599
+              },
+              {
+                "feature": "Atypical",
+                "block": "symptom_exam",
+                "value": -0.07626610620121427,
+                "spread": 0.012587546456537695
+              },
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": 0.060729612725287124,
+                "spread": 0.018156411398097132
+              },
+              {
+                "feature": "HTN",
+                "block": "demographic",
+                "value": -0.052019343208849204,
+                "spread": 0.00817081183812283
+              },
+              {
+                "feature": "EF-TTE",
+                "block": "echo",
+                "value": -0.05007217484972169,
+                "spread": 0.01182893076296041
+              },
+              {
+                "feature": "BP",
+                "block": "symptom_exam",
+                "value": -0.041497777517344375,
+                "spread": 0.01197429599986962
+              },
+              {
+                "feature": "FBS",
+                "block": "lab",
+                "value": -0.03785584432250733,
+                "spread": 0.008619875079304895
+              },
+              {
+                "feature": "Region RWMA",
+                "block": "echo",
+                "value": -0.02991164220413239,
+                "spread": 0.004499866515895698
+              },
+              {
+                "feature": "K",
+                "block": "lab",
+                "value": 0.01949279100499754,
+                "spread": 0.004930205680244684
+              },
+              {
+                "feature": "Tinversion",
+                "block": "ecg",
+                "value": -0.016615753348122837,
+                "spread": 0.004330817327383931
+              }
+            ]
+          },
+          "LAD": {
+            "algorithm": "random_forest",
+            "probability": 0.0608403168199485,
+            "interval_low": 0.0468722929345839,
+            "interval_high": 0.19047391810320025,
+            "cv_roc_auc": 0.850021978021978,
+            "contributions": [
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": -0.10134707596269717,
+                "spread": 0.011544560269144159
+              },
+              {
+                "feature": "Atypical",
+                "block": "symptom_exam",
+                "value": -0.06696039479652896,
+                "spread": 0.011123377030631938
+              },
+              {
+                "feature": "EF-TTE",
+                "block": "echo",
+                "value": -0.04945371059102237,
+                "spread": 0.011046526458927184
+              },
+              {
+                "feature": "Region RWMA",
+                "block": "echo",
+                "value": -0.03948138870698184,
+                "spread": 0.005673202874223909
+              },
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": 0.038927778579590934,
+                "spread": 0.014072503679877175
+              },
+              {
+                "feature": "BP",
+                "block": "symptom_exam",
+                "value": -0.019492722223728113,
+                "spread": 0.006922306932581986
+              },
+              {
+                "feature": "HTN",
+                "block": "demographic",
+                "value": -0.016947570623849117,
+                "spread": 0.005465398865697557
+              },
+              {
+                "feature": "FBS",
+                "block": "lab",
+                "value": -0.016697968324268023,
+                "spread": 0.005786165254264411
+              },
+              {
+                "feature": "PR",
+                "block": "symptom_exam",
+                "value": -0.015476917772394622,
+                "spread": 0.004453183246551013
+              },
+              {
+                "feature": "CR",
+                "block": "lab",
+                "value": -0.015175048593288417,
+                "spread": 0.0031067173390281534
+              }
+            ]
+          },
+          "LCX": {
+            "algorithm": "random_forest",
+            "probability": 0.15009863986036895,
+            "interval_low": 0.12322794432756388,
+            "interval_high": 0.285290690924862,
+            "cv_roc_auc": 0.7202055860208034,
+            "contributions": [
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": 0.047527913132897275,
+                "spread": 0.012423807923561488
+              },
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": -0.03492370937443679,
+                "spread": 0.00960657337499031
+              },
+              {
+                "feature": "CR",
+                "block": "lab",
+                "value": -0.026641066331930044,
+                "spread": 0.005372277140954862
+              },
+              {
+                "feature": "FBS",
+                "block": "lab",
+                "value": -0.022693942647301235,
+                "spread": 0.007183100637580599
+              },
+              {
+                "feature": "BP",
+                "block": "symptom_exam",
+                "value": -0.021658945660615,
+                "spread": 0.009647723984558461
+              },
+              {
+                "feature": "Length",
+                "block": "demographic",
+                "value": -0.015446428405496518,
+                "spread": 0.004816141455349447
+              },
+              {
+                "feature": "HTN",
+                "block": "demographic",
+                "value": -0.01488203530535917,
+                "spread": 0.0060968024727837385
+              },
+              {
+                "feature": "HB",
+                "block": "lab",
+                "value": -0.01481828149998762,
+                "spread": 0.0033084669472593312
+              },
+              {
+                "feature": "EF-TTE",
+                "block": "echo",
+                "value": -0.014525918035577524,
+                "spread": 0.00612658876734979
+              },
+              {
+                "feature": "Sex",
+                "block": "demographic",
+                "value": -0.013363990312281715,
+                "spread": 0.004476829139163668
+              }
+            ]
+          },
+          "RCA": {
+            "algorithm": "random_forest",
+            "probability": 0.13560277306834648,
+            "interval_low": 0.09703399091874672,
+            "interval_high": 0.2000578879040548,
+            "cv_roc_auc": 0.7046115181126622,
+            "contributions": [
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": -0.03733024605893672,
+                "spread": 0.006441026138295506
+              },
+              {
+                "feature": "Atypical",
+                "block": "symptom_exam",
+                "value": -0.029627043781852505,
+                "spread": 0.009392848590626205
+              },
+              {
+                "feature": "ESR",
+                "block": "lab",
+                "value": -0.028789462656616634,
+                "spread": 0.005833409009285221
+              },
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": 0.026403564998266595,
+                "spread": 0.00671462327355755
+              },
+              {
+                "feature": "DM",
+                "block": "demographic",
+                "value": -0.02461482099558238,
+                "spread": 0.005344442140277459
+              },
+              {
+                "feature": "NLR",
+                "block": "lab",
+                "value": -0.020793987218189397,
+                "spread": 0.0064840173447079765
+              },
+              {
+                "feature": "FBS",
+                "block": "lab",
+                "value": -0.02007321315133261,
+                "spread": 0.00496026752512891
+              },
+              {
+                "feature": "Neut",
+                "block": "lab",
+                "value": -0.015851292718604384,
+                "spread": 0.005848933976156979
+              },
+              {
+                "feature": "WBC",
+                "block": "lab",
+                "value": -0.01457337600890175,
+                "spread": 0.008658429464411326
+              },
+              {
+                "feature": "Lymph",
+                "block": "lab",
+                "value": -0.012082235081953458,
+                "spread": 0.0044684717832416095
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "single_lad",
+      "label": "Single-vessel disease (LAD only)",
+      "description": "Only the LAD is significantly narrowed on angiography.",
+      "angiography": {
+        "Cath": true,
+        "LAD": true,
+        "LCX": false,
+        "RCA": false
+      },
+      "patient": {
+        "Age": 36,
+        "Weight": 60,
+        "Length": 165,
+        "BMI": 22.03856749311295,
+        "BP": 125,
+        "PR": 70,
+        "Function Class": 0,
+        "FBS": 400,
+        "CR": 0.9,
+        "TG": 90,
+        "LDL": 69,
+        "HDL": 42.0,
+        "BUN": 15,
+        "ESR": 21,
+        "HB": 11.1,
+        "K": 4.3,
+        "Na": 143,
+        "WBC": 6000,
+        "Lymph": 30,
+        "Neut": 63,
+        "PLT": 172,
+        "EF-TTE": 45,
+        "Region RWMA": 2,
+        "DM": 1,
+        "HTN": 0,
+        "Current Smoker": 1,
+        "EX-Smoker": 0,
+        "FH": 0,
+        "Edema": 0,
+        "Typical Chest Pain": 0,
+        "Q Wave": 0,
+        "St Elevation": 0,
+        "St Depression": 0,
+        "Tinversion": 1,
+        "Obesity": "N",
+        "CRF": "N",
+        "CVA": "N",
+        "Airway disease": "N",
+        "Thyroid Disease": "N",
+        "DLP": "N",
+        "Weak Peripheral Pulse": "N",
+        "Lung rales": "N",
+        "Systolic Murmur": "N",
+        "Diastolic Murmur": "N",
+        "Dyspnea": "Y",
+        "Atypical": "N",
+        "Nonanginal": "N",
+        "LVH": "N",
+        "Poor R Progression": "N",
+        "Sex": "Female",
+        "BBB": "N",
+        "VHD": "N"
+      },
+      "prediction": {
+        "predictions": {
+          "Cath": {
+            "algorithm": "random_forest",
+            "probability": 0.9120255041700733,
+            "interval_low": 0.7882666806908417,
+            "interval_high": 0.9487888039998223,
+            "cv_roc_auc": 0.9224854564799844,
+            "contributions": [
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": -0.07919569363203928,
+                "spread": 0.015073627693731972
+              },
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": -0.07722535336584885,
+                "spread": 0.010270092136536516
+              },
+              {
+                "feature": "Region RWMA",
+                "block": "echo",
+                "value": 0.060535360463311656,
+                "spread": 0.007205716874995551
+              },
+              {
+                "feature": "Atypical",
+                "block": "symptom_exam",
+                "value": 0.0376133608394432,
+                "spread": 0.0043212866458559014
+              },
+              {
+                "feature": "FBS",
+                "block": "lab",
+                "value": 0.03359219743173185,
+                "spread": 0.005697311268216812
+              },
+              {
+                "feature": "EF-TTE",
+                "block": "echo",
+                "value": 0.027304294719242915,
+                "spread": 0.006236780158164948
+              },
+              {
+                "feature": "Tinversion",
+                "block": "ecg",
+                "value": 0.026106851346162335,
+                "spread": 0.007573866694231171
+              },
+              {
+                "feature": "HTN",
+                "block": "demographic",
+                "value": -0.025974047279435704,
+                "spread": 0.004920547968357651
+              },
+              {
+                "feature": "DM",
+                "block": "demographic",
+                "value": 0.022635165786789552,
+                "spread": 0.0060335606203149135
+              },
+              {
+                "feature": "ESR",
+                "block": "lab",
+                "value": 0.016975270649507174,
+                "spread": 0.004454798309886829
+              }
+            ]
+          },
+          "LAD": {
+            "algorithm": "random_forest",
+            "probability": 0.8986585405310527,
+            "interval_low": 0.733868866787364,
+            "interval_high": 0.9079842262635779,
+            "cv_roc_auc": 0.850021978021978,
+            "contributions": [
+              {
+                "feature": "Region RWMA",
+                "block": "echo",
+                "value": 0.0998539383140057,
+                "spread": 0.011287472059072974
+              },
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": -0.07583546940119085,
+                "spread": 0.014716350614526509
+              },
+              {
+                "feature": "EF-TTE",
+                "block": "echo",
+                "value": 0.05188819583608661,
+                "spread": 0.012758004181320635
+              },
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": -0.04509986081373924,
+                "spread": 0.013600906456892924
+              },
+              {
+                "feature": "Atypical",
+                "block": "symptom_exam",
+                "value": 0.027865848949196012,
+                "spread": 0.0052985840445359846
+              },
+              {
+                "feature": "Tinversion",
+                "block": "ecg",
+                "value": 0.027644948103889948,
+                "spread": 0.006242950488043232
+              },
+              {
+                "feature": "ESR",
+                "block": "lab",
+                "value": 0.02246127363675999,
+                "spread": 0.005024582331718603
+              },
+              {
+                "feature": "FBS",
+                "block": "lab",
+                "value": 0.020647454659931393,
+                "spread": 0.00801111384704352
+              },
+              {
+                "feature": "Neut",
+                "block": "lab",
+                "value": 0.013954345197166403,
+                "spread": 0.004061514691301341
+              },
+              {
+                "feature": "BMI",
+                "block": "demographic",
+                "value": 0.010935590807745367,
+                "spread": 0.005116793808209165
+              }
+            ]
+          },
+          "LCX": {
+            "algorithm": "random_forest",
+            "probability": 0.17789011155091422,
+            "interval_low": 0.141089018343513,
+            "interval_high": 0.35350007992054316,
+            "cv_roc_auc": 0.7202055860208034,
+            "contributions": [
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": -0.056553073008778015,
+                "spread": 0.010150187814297836
+              },
+              {
+                "feature": "FBS",
+                "block": "lab",
+                "value": 0.050183965831273505,
+                "spread": 0.021030807970363673
+              },
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": -0.0439770275832616,
+                "spread": 0.010420722451320712
+              },
+              {
+                "feature": "PLT",
+                "block": "lab",
+                "value": 0.03236583493562911,
+                "spread": 0.009677344193908012
+              },
+              {
+                "feature": "TG",
+                "block": "lab",
+                "value": -0.02998952660408453,
+                "spread": 0.010131311604356137
+              },
+              {
+                "feature": "NonHDL",
+                "block": "lab",
+                "value": -0.02635577306424865,
+                "spread": 0.007339247947290342
+              },
+              {
+                "feature": "CR",
+                "block": "lab",
+                "value": -0.021649930850169818,
+                "spread": 0.0051919770652451335
+              },
+              {
+                "feature": "DM",
+                "block": "demographic",
+                "value": 0.015232953233742439,
+                "spread": 0.004241638642308882
+              },
+              {
+                "feature": "Length",
+                "block": "demographic",
+                "value": -0.014923259960269643,
+                "spread": 0.004917586852562444
+              },
+              {
+                "feature": "BMI",
+                "block": "demographic",
+                "value": 0.014753090374117936,
+                "spread": 0.009299261987571163
+              }
+            ]
+          },
+          "RCA": {
+            "algorithm": "random_forest",
+            "probability": 0.24142057891609334,
+            "interval_low": 0.1973165143075499,
+            "interval_high": 0.4083822789012493,
+            "cv_roc_auc": 0.7046115181126622,
+            "contributions": [
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": -0.059694459308995716,
+                "spread": 0.011521063188758675
+              },
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": -0.045715080109987066,
+                "spread": 0.0064723839349847484
+              },
+              {
+                "feature": "DM",
+                "block": "demographic",
+                "value": 0.03985254418756866,
+                "spread": 0.011718613690751747
+              },
+              {
+                "feature": "FBS",
+                "block": "lab",
+                "value": 0.03722435723029996,
+                "spread": 0.012460200221419741
+              },
+              {
+                "feature": "NLR",
+                "block": "lab",
+                "value": 0.027099912884883746,
+                "spread": 0.0071217055589813385
+              },
+              {
+                "feature": "ESR",
+                "block": "lab",
+                "value": 0.01927281770482385,
+                "spread": 0.007540478167235121
+              },
+              {
+                "feature": "WBC",
+                "block": "lab",
+                "value": -0.01771121488656096,
+                "spread": 0.00643862414787652
+              },
+              {
+                "feature": "NonHDL",
+                "block": "lab",
+                "value": -0.016234993989919164,
+                "spread": 0.005302588130209712
+              },
+              {
+                "feature": "HTN",
+                "block": "demographic",
+                "value": -0.015069635203523188,
+                "spread": 0.0041833085117214674
+              },
+              {
+                "feature": "PLT",
+                "block": "lab",
+                "value": 0.01494316082661994,
+                "spread": 0.007921504233342584
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "triple_vessel",
+      "label": "Triple-vessel disease",
+      "description": "LAD, LCX and RCA are all significantly narrowed; youngest such patient.",
+      "angiography": {
+        "Cath": true,
+        "LAD": true,
+        "LCX": true,
+        "RCA": true
+      },
+      "patient": {
+        "Age": 44,
+        "Weight": 90,
+        "Length": 185,
+        "BMI": 26.296566837107374,
+        "BP": 120,
+        "PR": 88,
+        "Function Class": 0,
+        "FBS": 95,
+        "CR": 1.1,
+        "TG": 144,
+        "LDL": 142,
+        "HDL": 40.0,
+        "BUN": 16,
+        "ESR": 69,
+        "HB": 16.0,
+        "K": 4.0,
+        "Na": 136,
+        "WBC": 17000,
+        "Lymph": 15,
+        "Neut": 75,
+        "PLT": 250,
+        "EF-TTE": 35,
+        "Region RWMA": 0,
+        "DM": 0,
+        "HTN": 0,
+        "Current Smoker": 1,
+        "EX-Smoker": 0,
+        "FH": 1,
+        "Edema": 0,
+        "Typical Chest Pain": 1,
+        "Q Wave": 0,
+        "St Elevation": 1,
+        "St Depression": 0,
+        "Tinversion": 1,
+        "Obesity": "Y",
+        "CRF": "N",
+        "CVA": "N",
+        "Airway disease": "N",
+        "Thyroid Disease": "N",
+        "DLP": "N",
+        "Weak Peripheral Pulse": "N",
+        "Lung rales": "N",
+        "Systolic Murmur": "N",
+        "Diastolic Murmur": "N",
+        "Dyspnea": "N",
+        "Atypical": "N",
+        "Nonanginal": "N",
+        "LVH": "N",
+        "Poor R Progression": "N",
+        "Sex": "Male",
+        "BBB": "N",
+        "VHD": "N"
+      },
+      "prediction": {
+        "predictions": {
+          "Cath": {
+            "algorithm": "random_forest",
+            "probability": 0.9542862577206604,
+            "interval_low": 0.916461558689629,
+            "interval_high": 0.9752879419064984,
+            "cv_roc_auc": 0.9224854564799844,
+            "contributions": [
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": 0.06868413465719193,
+                "spread": 0.008271031028851456
+              },
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": -0.059482846941571896,
+                "spread": 0.011181826387679642
+              },
+              {
+                "feature": "Atypical",
+                "block": "symptom_exam",
+                "value": 0.04574673944465141,
+                "spread": 0.005276989854356767
+              },
+              {
+                "feature": "EF-TTE",
+                "block": "echo",
+                "value": 0.03128873140429405,
+                "spread": 0.007661246479246155
+              },
+              {
+                "feature": "Tinversion",
+                "block": "ecg",
+                "value": 0.024198065438819034,
+                "spread": 0.006564877176187935
+              },
+              {
+                "feature": "HTN",
+                "block": "demographic",
+                "value": -0.018804725476872258,
+                "spread": 0.0029534451818946936
+              },
+              {
+                "feature": "TG",
+                "block": "lab",
+                "value": 0.018357799602425735,
+                "spread": 0.0039007403909706324
+              },
+              {
+                "feature": "ESR",
+                "block": "lab",
+                "value": 0.017151069268554118,
+                "spread": 0.0041540420925178225
+              },
+              {
+                "feature": "Region RWMA",
+                "block": "echo",
+                "value": -0.014182744151050886,
+                "spread": 0.002473611229675756
+              },
+              {
+                "feature": "Weight",
+                "block": "demographic",
+                "value": -0.011848790400052557,
+                "spread": 0.003562707615345353
+              }
+            ]
+          },
+          "LAD": {
+            "algorithm": "random_forest",
+            "probability": 0.943656114711769,
+            "interval_low": 0.8714464411341255,
+            "interval_high": 0.9495151672385155,
+            "cv_roc_auc": 0.850021978021978,
+            "contributions": [
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": 0.06548207685778475,
+                "spread": 0.008061269032711408
+              },
+              {
+                "feature": "EF-TTE",
+                "block": "echo",
+                "value": 0.053504956274206435,
+                "spread": 0.011059219623504382
+              },
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": -0.04713353906271252,
+                "spread": 0.011159814115571478
+              },
+              {
+                "feature": "Atypical",
+                "block": "symptom_exam",
+                "value": 0.03431337526141773,
+                "spread": 0.005751648507290508
+              },
+              {
+                "feature": "ESR",
+                "block": "lab",
+                "value": 0.02894017285437027,
+                "spread": 0.00792794444564689
+              },
+              {
+                "feature": "NLR",
+                "block": "lab",
+                "value": 0.020845735554604474,
+                "spread": 0.007151837370556967
+              },
+              {
+                "feature": "Region RWMA",
+                "block": "echo",
+                "value": -0.020465339964712226,
+                "spread": 0.0040803128341531415
+              },
+              {
+                "feature": "Lymph",
+                "block": "lab",
+                "value": 0.01947682863747408,
+                "spread": 0.005340751542978058
+              },
+              {
+                "feature": "TG",
+                "block": "lab",
+                "value": 0.017551283760852063,
+                "spread": 0.004097823718268359
+              },
+              {
+                "feature": "Tinversion",
+                "block": "ecg",
+                "value": 0.017298755251849124,
+                "spread": 0.005846175608889136
+              }
+            ]
+          },
+          "LCX": {
+            "algorithm": "random_forest",
+            "probability": 0.7138884241371466,
+            "interval_low": 0.35132174898898516,
+            "interval_high": 0.8303798865555684,
+            "cv_roc_auc": 0.7202055860208034,
+            "contributions": [
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": -0.055673233035530255,
+                "spread": 0.014645056730235355
+              },
+              {
+                "feature": "HB",
+                "block": "lab",
+                "value": 0.051620087358299684,
+                "spread": 0.014205065618963689
+              },
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": 0.038843652739992324,
+                "spread": 0.00925070492324929
+              },
+              {
+                "feature": "EF-TTE",
+                "block": "echo",
+                "value": 0.023923229090421973,
+                "spread": 0.007766366719258454
+              },
+              {
+                "feature": "Length",
+                "block": "demographic",
+                "value": 0.022990719731289654,
+                "spread": 0.01026249637909044
+              },
+              {
+                "feature": "Lymph",
+                "block": "lab",
+                "value": 0.02266766525688425,
+                "spread": 0.014184444179420667
+              },
+              {
+                "feature": "ESR",
+                "block": "lab",
+                "value": 0.021350330508572362,
+                "spread": 0.008512320148675409
+              },
+              {
+                "feature": "NonHDL",
+                "block": "lab",
+                "value": 0.019200828972135563,
+                "spread": 0.0063820367779002345
+              },
+              {
+                "feature": "PLT",
+                "block": "lab",
+                "value": -0.01839374415856979,
+                "spread": 0.006293700173989212
+              },
+              {
+                "feature": "NLR",
+                "block": "lab",
+                "value": 0.018266467829422366,
+                "spread": 0.02111996066790858
+              }
+            ]
+          },
+          "RCA": {
+            "algorithm": "random_forest",
+            "probability": 0.7800240313451807,
+            "interval_low": 0.6034606731554616,
+            "interval_high": 0.8440753443035559,
+            "cv_roc_auc": 0.7046115181126622,
+            "contributions": [
+              {
+                "feature": "ESR",
+                "block": "lab",
+                "value": 0.060845876704356476,
+                "spread": 0.01712673327369293
+              },
+              {
+                "feature": "NLR",
+                "block": "lab",
+                "value": 0.053933289578889675,
+                "spread": 0.008392818637619134
+              },
+              {
+                "feature": "Neut",
+                "block": "lab",
+                "value": 0.045285563272196475,
+                "spread": 0.013617210492681567
+              },
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": -0.043202860159310554,
+                "spread": 0.01191270909358326
+              },
+              {
+                "feature": "WBC",
+                "block": "lab",
+                "value": 0.03568971579554067,
+                "spread": 0.011277755658808978
+              },
+              {
+                "feature": "HB",
+                "block": "lab",
+                "value": 0.034913553393630344,
+                "spread": 0.009382580489721242
+              },
+              {
+                "feature": "Lymph",
+                "block": "lab",
+                "value": 0.032426623582554596,
+                "spread": 0.00727250599636754
+              },
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": 0.03017405526305408,
+                "spread": 0.0037844406461079384
+              },
+              {
+                "feature": "Length",
+                "block": "demographic",
+                "value": 0.015195505440974744,
+                "spread": 0.008942213363172991
+              },
+              {
+                "feature": "Atypical",
+                "block": "symptom_exam",
+                "value": 0.013959520919969388,
+                "spread": 0.00468246582128775
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "high_rwma_low_ef",
+      "label": "Extensive wall-motion abnormality, low EF",
+      "description": "Maximum regional wall-motion score with the lowest ejection fraction.",
+      "angiography": {
+        "Cath": true,
+        "LAD": true,
+        "LCX": true,
+        "RCA": true
+      },
+      "patient": {
+        "Age": 59,
+        "Weight": 81,
+        "Length": 168,
+        "BMI": 28.69897959183674,
+        "BP": 120,
+        "PR": 110,
+        "Function Class": 0,
+        "FBS": 218,
+        "CR": 1.8,
+        "TG": 104,
+        "LDL": 112,
+        "HDL": 54.0,
+        "BUN": 16,
+        "ESR": 19,
+        "HB": 13.3,
+        "K": 5.1,
+        "Na": 153,
+        "WBC": 12100,
+        "Lymph": 15,
+        "Neut": 81,
+        "PLT": 170,
+        "EF-TTE": 15,
+        "Region RWMA": 4,
+        "DM": 1,
+        "HTN": 1,
+        "Current Smoker": 0,
+        "EX-Smoker": 0,
+        "FH": 0,
+        "Edema": 0,
+        "Typical Chest Pain": 1,
+        "Q Wave": 0,
+        "St Elevation": 0,
+        "St Depression": 0,
+        "Tinversion": 0,
+        "Obesity": "Y",
+        "CRF": "N",
+        "CVA": "N",
+        "Airway disease": "N",
+        "Thyroid Disease": "N",
+        "DLP": "Y",
+        "Weak Peripheral Pulse": "N",
+        "Lung rales": "N",
+        "Systolic Murmur": "N",
+        "Diastolic Murmur": "N",
+        "Dyspnea": "N",
+        "Atypical": "N",
+        "Nonanginal": "N",
+        "LVH": "N",
+        "Poor R Progression": "N",
+        "Sex": "Male",
+        "BBB": "N",
+        "VHD": "Moderate"
+      },
+      "prediction": {
+        "predictions": {
+          "Cath": {
+            "algorithm": "random_forest",
+            "probability": 0.9828482567627767,
+            "interval_low": 0.9820226726883527,
+            "interval_high": 0.9887582254622868,
+            "cv_roc_auc": 0.9224854564799844,
+            "contributions": [
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": 0.04965240832732192,
+                "spread": 0.004887090059812155
+              },
+              {
+                "feature": "Region RWMA",
+                "block": "echo",
+                "value": 0.032007093451096265,
+                "spread": 0.004276029634507357
+              },
+              {
+                "feature": "Atypical",
+                "block": "symptom_exam",
+                "value": 0.03138544235966114,
+                "spread": 0.0037541745459332334
+              },
+              {
+                "feature": "FBS",
+                "block": "lab",
+                "value": 0.02018432860848499,
+                "spread": 0.003142455589623963
+              },
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": 0.019401665673188875,
+                "spread": 0.00471822628275319
+              },
+              {
+                "feature": "EF-TTE",
+                "block": "echo",
+                "value": 0.016571405501459982,
+                "spread": 0.005418763880643418
+              },
+              {
+                "feature": "HTN",
+                "block": "demographic",
+                "value": 0.013895615602768531,
+                "spread": 0.002104079711829497
+              },
+              {
+                "feature": "K",
+                "block": "lab",
+                "value": 0.012876607330708448,
+                "spread": 0.003182239581794087
+              },
+              {
+                "feature": "DM",
+                "block": "demographic",
+                "value": 0.009040238046367294,
+                "spread": 0.0036169215962983292
+              },
+              {
+                "feature": "CR",
+                "block": "lab",
+                "value": 0.007173068955030523,
+                "spread": 0.0019040083580731367
+              }
+            ]
+          },
+          "LAD": {
+            "algorithm": "random_forest",
+            "probability": 0.9703829271599915,
+            "interval_low": 0.9450554149248196,
+            "interval_high": 0.97333277038892,
+            "cv_roc_auc": 0.850021978021978,
+            "contributions": [
+              {
+                "feature": "Region RWMA",
+                "block": "echo",
+                "value": 0.05772712091084161,
+                "spread": 0.008873204615429797
+              },
+              {
+                "feature": "EF-TTE",
+                "block": "echo",
+                "value": 0.05147180761982082,
+                "spread": 0.008535277379532347
+              },
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": 0.050303258952912516,
+                "spread": 0.005780828281346313
+              },
+              {
+                "feature": "Atypical",
+                "block": "symptom_exam",
+                "value": 0.02964537006907921,
+                "spread": 0.005100984362892306
+              },
+              {
+                "feature": "NLR",
+                "block": "lab",
+                "value": 0.0194256060863349,
+                "spread": 0.006558348817167146
+              },
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": 0.01824955391029767,
+                "spread": 0.007055684611941547
+              },
+              {
+                "feature": "Neut",
+                "block": "lab",
+                "value": 0.017547622201029203,
+                "spread": 0.006206496397452634
+              },
+              {
+                "feature": "Lymph",
+                "block": "lab",
+                "value": 0.017204004644662686,
+                "spread": 0.004343781648963863
+              },
+              {
+                "feature": "CR",
+                "block": "lab",
+                "value": 0.014669069588229437,
+                "spread": 0.0044948355631026895
+              },
+              {
+                "feature": "WBC",
+                "block": "lab",
+                "value": 0.014134659398449174,
+                "spread": 0.004541893394118751
+              }
+            ]
+          },
+          "LCX": {
+            "algorithm": "random_forest",
+            "probability": 0.9090809986834502,
+            "interval_low": 0.817044727347347,
+            "interval_high": 0.9303765650988363,
+            "cv_roc_auc": 0.7202055860208034,
+            "contributions": [
+              {
+                "feature": "CR",
+                "block": "lab",
+                "value": 0.05562134099782174,
+                "spread": 0.013622836092465295
+              },
+              {
+                "feature": "PLT",
+                "block": "lab",
+                "value": 0.05296961563247453,
+                "spread": 0.013988789589554195
+              },
+              {
+                "feature": "FBS",
+                "block": "lab",
+                "value": 0.04591511768971791,
+                "spread": 0.013996521372899135
+              },
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": 0.03453509853218244,
+                "spread": 0.008302087682477255
+              },
+              {
+                "feature": "NLR",
+                "block": "lab",
+                "value": 0.03185037246862956,
+                "spread": 0.017407835017366664
+              },
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": 0.026424769872248746,
+                "spread": 0.011415054757978545
+              },
+              {
+                "feature": "Na",
+                "block": "lab",
+                "value": 0.02416219264792255,
+                "spread": 0.009954585664435042
+              },
+              {
+                "feature": "K",
+                "block": "lab",
+                "value": 0.01849455480145826,
+                "spread": 0.0070008173380065415
+              },
+              {
+                "feature": "EF-TTE",
+                "block": "echo",
+                "value": 0.01752536244077211,
+                "spread": 0.008603404544489402
+              },
+              {
+                "feature": "Neut",
+                "block": "lab",
+                "value": 0.016226250749978154,
+                "spread": 0.008870281956258384
+              }
+            ]
+          },
+          "RCA": {
+            "algorithm": "random_forest",
+            "probability": 0.8804516402490596,
+            "interval_low": 0.8008076436282923,
+            "interval_high": 0.9197909328328452,
+            "cv_roc_auc": 0.7046115181126622,
+            "contributions": [
+              {
+                "feature": "NLR",
+                "block": "lab",
+                "value": 0.07090709396809441,
+                "spread": 0.0077244272255708075
+              },
+              {
+                "feature": "Neut",
+                "block": "lab",
+                "value": 0.05744886613996206,
+                "spread": 0.01081464052267438
+              },
+              {
+                "feature": "FBS",
+                "block": "lab",
+                "value": 0.049884516060658246,
+                "spread": 0.008289240828174603
+              },
+              {
+                "feature": "DM",
+                "block": "demographic",
+                "value": 0.046111520233285096,
+                "spread": 0.010248953325542433
+              },
+              {
+                "feature": "Lymph",
+                "block": "lab",
+                "value": 0.039541711950858295,
+                "spread": 0.00696826696347174
+              },
+              {
+                "feature": "ESR",
+                "block": "lab",
+                "value": 0.028273357777060908,
+                "spread": 0.009121373470833988
+              },
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": 0.02666269651267586,
+                "spread": 0.007390671891344747
+              },
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": 0.026052410760620714,
+                "spread": 0.004065869070072395
+              },
+              {
+                "feature": "WBC",
+                "block": "lab",
+                "value": 0.025125060599090313,
+                "spread": 0.009669764734360662
+              },
+              {
+                "feature": "PLT",
+                "block": "lab",
+                "value": 0.018102330708642613,
+                "spread": 0.007142137918683185
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "silent_disease",
+      "label": "Disease without chest pain",
+      "description": "Significant coronary disease in a patient reporting no chest pain.",
+      "angiography": {
+        "Cath": true,
+        "LAD": true,
+        "LCX": true,
+        "RCA": true
+      },
+      "patient": {
+        "Age": 85,
+        "Weight": 73,
+        "Length": 165,
+        "BMI": 26.813590449954088,
+        "BP": 150,
+        "PR": 80,
+        "Function Class": 0,
+        "FBS": 89,
+        "CR": 1.6,
+        "TG": 100,
+        "LDL": 80,
+        "HDL": 39.0,
+        "BUN": 23,
+        "ESR": 23,
+        "HB": 11.0,
+        "K": 4.1,
+        "Na": 132,
+        "WBC": 10300,
+        "Lymph": 10,
+        "Neut": 84,
+        "PLT": 256,
+        "EF-TTE": 45,
+        "Region RWMA": 2,
+        "DM": 0,
+        "HTN": 1,
+        "Current Smoker": 0,
+        "EX-Smoker": 0,
+        "FH": 1,
+        "Edema": 0,
+        "Typical Chest Pain": 0,
+        "Q Wave": 0,
+        "St Elevation": 0,
+        "St Depression": 0,
+        "Tinversion": 0,
+        "Obesity": "Y",
+        "CRF": "N",
+        "CVA": "N",
+        "Airway disease": "N",
+        "Thyroid Disease": "N",
+        "DLP": "N",
+        "Weak Peripheral Pulse": "N",
+        "Lung rales": "N",
+        "Systolic Murmur": "N",
+        "Diastolic Murmur": "N",
+        "Dyspnea": "N",
+        "Atypical": "N",
+        "Nonanginal": "N",
+        "LVH": "N",
+        "Poor R Progression": "N",
+        "Sex": "Male",
+        "BBB": "LBBB",
+        "VHD": "mild"
+      },
+      "prediction": {
+        "predictions": {
+          "Cath": {
+            "algorithm": "random_forest",
+            "probability": 0.9789802354348224,
+            "interval_low": 0.9630468098478981,
+            "interval_high": 0.9831396404641394,
+            "cv_roc_auc": 0.9224854564799844,
+            "contributions": [
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": -0.06180340426988127,
+                "spread": 0.009329913792420165
+              },
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": 0.05323220805255156,
+                "spread": 0.010368680957683233
+              },
+              {
+                "feature": "Region RWMA",
+                "block": "echo",
+                "value": 0.04807610790975183,
+                "spread": 0.005387197358614896
+              },
+              {
+                "feature": "Atypical",
+                "block": "symptom_exam",
+                "value": 0.02570195160158336,
+                "spread": 0.0037643535570558964
+              },
+              {
+                "feature": "EF-TTE",
+                "block": "echo",
+                "value": 0.02552116260942048,
+                "spread": 0.006039153017902039
+              },
+              {
+                "feature": "HTN",
+                "block": "demographic",
+                "value": 0.020892494417583708,
+                "spread": 0.003546413652308651
+              },
+              {
+                "feature": "ESR",
+                "block": "lab",
+                "value": 0.019951313362025363,
+                "spread": 0.003713095874582048
+              },
+              {
+                "feature": "BP",
+                "block": "symptom_exam",
+                "value": 0.017791860005298487,
+                "spread": 0.0029023917769447805
+              },
+              {
+                "feature": "CR",
+                "block": "lab",
+                "value": 0.01274787747077156,
+                "spread": 0.0030684107882363596
+              },
+              {
+                "feature": "FBS",
+                "block": "lab",
+                "value": -0.011496878506294637,
+                "spread": 0.0037925423923915744
+              }
+            ]
+          },
+          "LAD": {
+            "algorithm": "random_forest",
+            "probability": 0.9524509955547241,
+            "interval_low": 0.9211615126892829,
+            "interval_high": 0.9616057702044758,
+            "cv_roc_auc": 0.850021978021978,
+            "contributions": [
+              {
+                "feature": "Region RWMA",
+                "block": "echo",
+                "value": 0.0779618926775458,
+                "spread": 0.01185315214044932
+              },
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": -0.06310594844929666,
+                "spread": 0.010721693208741796
+              },
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": 0.04904012003584611,
+                "spread": 0.00931133847984842
+              },
+              {
+                "feature": "EF-TTE",
+                "block": "echo",
+                "value": 0.04229016048457276,
+                "spread": 0.010976932662054139
+              },
+              {
+                "feature": "CR",
+                "block": "lab",
+                "value": 0.030399645999351306,
+                "spread": 0.005165392554575842
+              },
+              {
+                "feature": "ESR",
+                "block": "lab",
+                "value": 0.021826631371343014,
+                "spread": 0.005166085105081733
+              },
+              {
+                "feature": "Atypical",
+                "block": "symptom_exam",
+                "value": 0.020297004147769113,
+                "spread": 0.0043438927779296
+              },
+              {
+                "feature": "Lymph",
+                "block": "lab",
+                "value": 0.019758898222996486,
+                "spread": 0.005753959735328622
+              },
+              {
+                "feature": "NLR",
+                "block": "lab",
+                "value": 0.016059749385981068,
+                "spread": 0.006434606651062991
+              },
+              {
+                "feature": "Neut",
+                "block": "lab",
+                "value": 0.013520291106652897,
+                "spread": 0.006442618714945589
+              }
+            ]
+          },
+          "LCX": {
+            "algorithm": "random_forest",
+            "probability": 0.8656561440382794,
+            "interval_low": 0.6681966666273383,
+            "interval_high": 0.8918548458876986,
+            "cv_roc_auc": 0.7202055860208034,
+            "contributions": [
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": 0.11251948623518948,
+                "spread": 0.015193984648866067
+              },
+              {
+                "feature": "CR",
+                "block": "lab",
+                "value": 0.08325549944077525,
+                "spread": 0.0177449233001094
+              },
+              {
+                "feature": "NLR",
+                "block": "lab",
+                "value": 0.061039367772145865,
+                "spread": 0.021714007185686616
+              },
+              {
+                "feature": "Lymph",
+                "block": "lab",
+                "value": 0.034344114802533666,
+                "spread": 0.01576394950384617
+              },
+              {
+                "feature": "BP",
+                "block": "symptom_exam",
+                "value": 0.021767604965251944,
+                "spread": 0.005183805444125864
+              },
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": -0.02171249843412727,
+                "spread": 0.00864098580550564
+              },
+              {
+                "feature": "PLT",
+                "block": "lab",
+                "value": -0.018806185403183757,
+                "spread": 0.00715258316864401
+              },
+              {
+                "feature": "ESR",
+                "block": "lab",
+                "value": 0.017246118788600905,
+                "spread": 0.006143141396421389
+              },
+              {
+                "feature": "Neut",
+                "block": "lab",
+                "value": 0.016041977540405115,
+                "spread": 0.012469545931758056
+              },
+              {
+                "feature": "BUN",
+                "block": "lab",
+                "value": 0.014519773235307037,
+                "spread": 0.005649063395231725
+              }
+            ]
+          },
+          "RCA": {
+            "algorithm": "random_forest",
+            "probability": 0.7902215796692542,
+            "interval_low": 0.6264110453477231,
+            "interval_high": 0.8512087286181595,
+            "cv_roc_auc": 0.7046115181126622,
+            "contributions": [
+              {
+                "feature": "NLR",
+                "block": "lab",
+                "value": 0.07570242145613693,
+                "spread": 0.012099276182523593
+              },
+              {
+                "feature": "Neut",
+                "block": "lab",
+                "value": 0.06338093120125154,
+                "spread": 0.015416097779720707
+              },
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": 0.06009307653906009,
+                "spread": 0.015184507269748498
+              },
+              {
+                "feature": "Lymph",
+                "block": "lab",
+                "value": 0.04594863662086591,
+                "spread": 0.008628791511592598
+              },
+              {
+                "feature": "ESR",
+                "block": "lab",
+                "value": 0.04325490546611871,
+                "spread": 0.012508254256835494
+              },
+              {
+                "feature": "WBC",
+                "block": "lab",
+                "value": 0.0304484982910284,
+                "spread": 0.008763478453668547
+              },
+              {
+                "feature": "CR",
+                "block": "lab",
+                "value": 0.023367224264914385,
+                "spread": 0.007193095015820883
+              },
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": -0.02033304036817706,
+                "spread": 0.004469611585027737
+              },
+              {
+                "feature": "BP",
+                "block": "symptom_exam",
+                "value": 0.015462930581732409,
+                "spread": 0.004831918592617051
+              },
+              {
+                "feature": "DM",
+                "block": "demographic",
+                "value": -0.012315920629313498,
+                "spread": 0.004549397205292083
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "normal_despite_typical_pain",
+      "label": "Typical chest pain, normal angiography",
+      "description": "Classic symptoms but open arteries; a case the model should not over-call.",
+      "angiography": {
+        "Cath": false,
+        "LAD": false,
+        "LCX": false,
+        "RCA": false
+      },
+      "patient": {
+        "Age": 30,
+        "Weight": 70,
+        "Length": 168,
+        "BMI": 24.801587301587304,
+        "BP": 140,
+        "PR": 70,
+        "Function Class": 0,
+        "FBS": 92,
+        "CR": 1.0,
+        "TG": 290,
+        "LDL": 140,
+        "HDL": 30.0,
+        "BUN": 17,
+        "ESR": 2,
+        "HB": 13.8,
+        "K": 4.0,
+        "Na": 144,
+        "WBC": 7700,
+        "Lymph": 36,
+        "Neut": 50,
+        "PLT": 350,
+        "EF-TTE": 55,
+        "Region RWMA": 0,
+        "DM": 0,
+        "HTN": 1,
+        "Current Smoker": 0,
+        "EX-Smoker": 0,
+        "FH": 0,
+        "Edema": 0,
+        "Typical Chest Pain": 1,
+        "Q Wave": 0,
+        "St Elevation": 0,
+        "St Depression": 0,
+        "Tinversion": 0,
+        "Obesity": "N",
+        "CRF": "N",
+        "CVA": "N",
+        "Airway disease": "N",
+        "Thyroid Disease": "N",
+        "DLP": "N",
+        "Weak Peripheral Pulse": "N",
+        "Lung rales": "N",
+        "Systolic Murmur": "N",
+        "Diastolic Murmur": "N",
+        "Dyspnea": "N",
+        "Atypical": "N",
+        "Nonanginal": "N",
+        "LVH": "N",
+        "Poor R Progression": "N",
+        "Sex": "Male",
+        "BBB": "N",
+        "VHD": "mild"
+      },
+      "prediction": {
+        "predictions": {
+          "Cath": {
+            "algorithm": "random_forest",
+            "probability": 0.44342332105205257,
+            "interval_low": 0.2794435399916066,
+            "interval_high": 0.8662183580396055,
+            "cv_roc_auc": 0.9224854564799844,
+            "contributions": [
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": -0.11514444009017906,
+                "spread": 0.01598726235303843
+              },
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": 0.0787323890709018,
+                "spread": 0.012332172347485964
+              },
+              {
+                "feature": "ESR",
+                "block": "lab",
+                "value": -0.051580760418347,
+                "spread": 0.014314285846625575
+              },
+              {
+                "feature": "EF-TTE",
+                "block": "echo",
+                "value": -0.04827539618730543,
+                "spread": 0.012888325639732474
+              },
+              {
+                "feature": "Atypical",
+                "block": "symptom_exam",
+                "value": 0.03586093440803573,
+                "spread": 0.00665276318348164
+              },
+              {
+                "feature": "FBS",
+                "block": "lab",
+                "value": -0.024502691162958733,
+                "spread": 0.007723752749379795
+              },
+              {
+                "feature": "PLT",
+                "block": "lab",
+                "value": -0.02147782085397936,
+                "spread": 0.008341914778332418
+              },
+              {
+                "feature": "Region RWMA",
+                "block": "echo",
+                "value": -0.019514687274807586,
+                "spread": 0.0037702803843277623
+              },
+              {
+                "feature": "TG",
+                "block": "lab",
+                "value": 0.017554394423302536,
+                "spread": 0.008747285867419508
+              },
+              {
+                "feature": "HTN",
+                "block": "demographic",
+                "value": 0.016160454339923507,
+                "spread": 0.0036172990537113006
+              }
+            ]
+          },
+          "LAD": {
+            "algorithm": "random_forest",
+            "probability": 0.3332994772997422,
+            "interval_low": 0.18302825030017766,
+            "interval_high": 0.6883349120877578,
+            "cv_roc_auc": 0.850021978021978,
+            "contributions": [
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": -0.08358537011894109,
+                "spread": 0.018337230923553348
+              },
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": 0.08126262547780781,
+                "spread": 0.011315386766221165
+              },
+              {
+                "feature": "EF-TTE",
+                "block": "echo",
+                "value": -0.06873021702248117,
+                "spread": 0.013310128371082586
+              },
+              {
+                "feature": "ESR",
+                "block": "lab",
+                "value": -0.04235888987345905,
+                "spread": 0.010169648708127806
+              },
+              {
+                "feature": "Atypical",
+                "block": "symptom_exam",
+                "value": 0.030335683639177727,
+                "spread": 0.005465059422633065
+              },
+              {
+                "feature": "Region RWMA",
+                "block": "echo",
+                "value": -0.030122618696855407,
+                "spread": 0.004604701397388626
+              },
+              {
+                "feature": "PLT",
+                "block": "lab",
+                "value": -0.02069038323672735,
+                "spread": 0.010414235135650676
+              },
+              {
+                "feature": "Na",
+                "block": "lab",
+                "value": -0.01669978640454093,
+                "spread": 0.004077284592307416
+              },
+              {
+                "feature": "TG",
+                "block": "lab",
+                "value": 0.01555188586487982,
+                "spread": 0.006045469803750996
+              },
+              {
+                "feature": "Neut",
+                "block": "lab",
+                "value": -0.01514050018918654,
+                "spread": 0.007241845412683076
+              }
+            ]
+          },
+          "LCX": {
+            "algorithm": "random_forest",
+            "probability": 0.17885204331456278,
+            "interval_low": 0.15054104681184935,
+            "interval_high": 0.3881941299558084,
+            "cv_roc_auc": 0.7202055860208034,
+            "contributions": [
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": -0.07725143190076644,
+                "spread": 0.01366318018797823
+              },
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": 0.0429470441222097,
+                "spread": 0.012072975211861152
+              },
+              {
+                "feature": "PLT",
+                "block": "lab",
+                "value": -0.030583240797734678,
+                "spread": 0.008079436501505971
+              },
+              {
+                "feature": "CR",
+                "block": "lab",
+                "value": -0.02627313988808682,
+                "spread": 0.006109572548289628
+              },
+              {
+                "feature": "EF-TTE",
+                "block": "echo",
+                "value": -0.024495697952280078,
+                "spread": 0.007528051960186656
+              },
+              {
+                "feature": "TG",
+                "block": "lab",
+                "value": 0.02414267294021757,
+                "spread": 0.012756498916596212
+              },
+              {
+                "feature": "ESR",
+                "block": "lab",
+                "value": -0.023625771554559513,
+                "spread": 0.009734662036451257
+              },
+              {
+                "feature": "HB",
+                "block": "lab",
+                "value": -0.020643857672212933,
+                "spread": 0.0038774218270646453
+              },
+              {
+                "feature": "NonHDL",
+                "block": "lab",
+                "value": 0.019185646180134734,
+                "spread": 0.009737595783620625
+              },
+              {
+                "feature": "Na",
+                "block": "lab",
+                "value": 0.017517529555698134,
+                "spread": 0.00525850405598786
+              }
+            ]
+          },
+          "RCA": {
+            "algorithm": "random_forest",
+            "probability": 0.1574311915378027,
+            "interval_low": 0.1393610975355103,
+            "interval_high": 0.23013869361370712,
+            "cv_roc_auc": 0.7046115181126622,
+            "contributions": [
+              {
+                "feature": "Age",
+                "block": "demographic",
+                "value": -0.050843124447200336,
+                "spread": 0.007658656933774394
+              },
+              {
+                "feature": "NLR",
+                "block": "lab",
+                "value": -0.04188508316142847,
+                "spread": 0.0074607599933269415
+              },
+              {
+                "feature": "ESR",
+                "block": "lab",
+                "value": -0.03992190671438546,
+                "spread": 0.011055842261914388
+              },
+              {
+                "feature": "NonHDL",
+                "block": "lab",
+                "value": 0.03133529468450538,
+                "spread": 0.010405331949899326
+              },
+              {
+                "feature": "Neut",
+                "block": "lab",
+                "value": -0.023851458336363034,
+                "spread": 0.005585475631427206
+              },
+              {
+                "feature": "Lymph",
+                "block": "lab",
+                "value": -0.02339528261278289,
+                "spread": 0.007228211438341906
+              },
+              {
+                "feature": "DM",
+                "block": "demographic",
+                "value": -0.020705206211674043,
+                "spread": 0.006255208979448141
+              },
+              {
+                "feature": "Typical Chest Pain",
+                "block": "symptom_exam",
+                "value": 0.019072333002628745,
+                "spread": 0.003908595632309005
+              },
+              {
+                "feature": "TG",
+                "block": "lab",
+                "value": 0.017340087815722837,
+                "spread": 0.009081165893783907
+              },
+              {
+                "feature": "PLT",
+                "block": "lab",
+                "value": -0.016345482878063713,
+                "spread": 0.00626404525036748
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

@@ -72,3 +72,5 @@ FEATURE_BLOCKS = {
 }  # fmt: skip
 
 FEATURE_COLUMNS = tuple(name for block in FEATURE_BLOCKS.values() for name in block)
+
+BLOCK_OF = {name: block for block, names in FEATURE_BLOCKS.items() for name in names}
