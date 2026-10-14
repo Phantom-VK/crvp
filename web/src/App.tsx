@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import type { Predictions, TargetId, VesselId } from "./api/types";
+import { DataBanner } from "./components/DataBanner";
 import { HeartViewer } from "./components/HeartViewer";
 import { Honesty } from "./components/Honesty";
 import { LegalBar } from "./components/LegalBar";
@@ -7,14 +8,7 @@ import { PatientDrawer } from "./components/PatientDrawer";
 import { TargetDetail } from "./components/TargetDetail";
 import { TargetRail } from "./components/TargetRail";
 import { TopBar } from "./components/TopBar";
-import { type Origin, usePatient } from "./hooks/usePatient";
-
-const ORIGIN_TEXT: Record<Origin, string> = {
-  stored: "Stored result for this example. These are real patients from the training set, so the scores are optimistic.",
-  live: "Calculated just now by the prediction service for the values in Patient data.",
-  fallback: "Prediction service unavailable.",
-  stale: "Inputs edited. Press Estimate risk to update.",
-};
+import { usePatient } from "./hooks/usePatient";
 
 function vesselProbabilities(predictions: Predictions | null) {
   if (!predictions) return {};
@@ -26,6 +20,7 @@ export function App() {
   const [selected, setSelected] = useState<TargetId>("Cath");
   const drawer = useRef<HTMLDialogElement>(null);
   const { predictions } = patient;
+  const exampleLabel = patient.presets.find((preset) => preset.id === patient.presetId)?.label ?? "";
   const vessel: VesselId | null = selected === "Cath" ? null : selected;
 
   const estimate = async () => {
@@ -35,7 +30,8 @@ export function App() {
 
   return (
     <div className="shell">
-      <TopBar busy={patient.busy} onOpenData={() => drawer.current?.showModal()} onEstimate={estimate} />
+      <TopBar onOpenData={() => drawer.current?.showModal()} />
+      <DataBanner origin={patient.origin} exampleLabel={exampleLabel} notice={patient.notice} />
 
       <div className="workspace">
         <aside className="rail" aria-label="Patient and targets">
@@ -49,10 +45,6 @@ export function App() {
               ))}
             </select>
           </label>
-          <p className="rail__status" data-origin={patient.origin} aria-live="polite">
-            {ORIGIN_TEXT[patient.origin]}
-          </p>
-          <div aria-live="polite">{patient.notice && <p className="rail__notice">{patient.notice}</p>}</div>
           {predictions && <TargetRail predictions={predictions} selected={selected} onSelect={setSelected} />}
         </aside>
 
@@ -66,7 +58,7 @@ export function App() {
         </main>
 
         <aside className="detail" aria-label="Selected target">
-          {predictions && <TargetDetail id={selected} prediction={predictions[selected]} patient={patient.values} />}
+          {predictions && <TargetDetail id={selected} prediction={predictions[selected]} patient={patient.values} example={patient.origin === "stored" || patient.origin === "fallback"} />}
           <Honesty />
         </aside>
       </div>

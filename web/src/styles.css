@@ -72,7 +72,7 @@ input {
 /* Shell */
 .shell {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
   height: 100dvh;
 }
 
@@ -146,6 +146,37 @@ input {
   cursor: progress;
 }
 
+.databanner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 14px;
+  padding: 8px var(--gutter);
+  border-bottom: 1px solid var(--rule);
+  border-left: 4px solid var(--rule-strong);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.databanner strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.databanner--example {
+  background: #f4e6da;
+  border-left-color: var(--accent);
+  color: var(--ink);
+}
+
+.databanner--example strong {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+}
+
+
 .workspace {
   display: grid;
   grid-template-columns: 280px minmax(0, 1fr) 480px;
@@ -199,19 +230,6 @@ select:focus,
 input[type="number"]:hover,
 input[type="number"]:focus {
   border-bottom-color: var(--ink);
-}
-
-.rail__status {
-  margin-top: 10px;
-  color: var(--muted);
-  font-size: 0.8rem;
-}
-
-.rail__notice {
-  margin-top: 10px;
-  padding-left: 10px;
-  border-left: 2px solid var(--accent);
-  font-size: 0.85rem;
 }
 
 .targets {
@@ -326,6 +344,12 @@ input[type="number"]:focus {
   padding: 0 5px;
   line-height: 1.5;
   margin-left: 8px;
+}
+
+.badge.badge--example {
+  margin-left: 10px;
+  background: var(--accent);
+  color: var(--accent-ink);
 }
 
 .target__name .badge {
@@ -760,7 +784,7 @@ input[type="number"]:focus {
   .shell {
     height: auto;
     min-height: 100dvh;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto auto auto auto;
   }
 
   .workspace {

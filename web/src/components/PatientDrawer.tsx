@@ -26,7 +26,7 @@ export function PatientDrawer({ dialogRef, values, busy, onChange, onSubmit }: P
           Close
         </button>
       </div>
-      <p className="drawer__lead">Edit any value, then press Estimate risk. Field names follow the published dataset.</p>
+      <p className="drawer__lead">Enter or edit the patient's values, then press Estimate risk at the bottom to calculate. Field names follow the published dataset.</p>
       <PatientForm values={values} busy={busy} onChange={onChange} onSubmit={onSubmit} />
     </dialog>
   );

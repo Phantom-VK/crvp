@@ -9,14 +9,18 @@ interface Props {
   id: TargetId;
   prediction: TargetPrediction;
   patient: PatientValues;
+  example: boolean;
 }
 
-export function TargetDetail({ id, prediction, patient }: Props) {
+export function TargetDetail({ id, prediction, patient, example }: Props) {
   const info = TARGET_INFO.find((target) => target.id === id) ?? TARGET_INFO[0];
   const note = confidenceNote(prediction.cv_roc_auc);
   return (
     <section className="selected" aria-label={`${info.title} detail`}>
-      <p className="kicker">{info.short}</p>
+      <p className="kicker">
+        {info.short}
+        {example && <span className="badge badge--example">Example patient</span>}
+      </p>
       <h2>{info.title}</h2>
       <p className="selected__value">{percent(prediction.probability)}</p>
       <RiskBar prediction={prediction} />
