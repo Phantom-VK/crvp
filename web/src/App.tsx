@@ -1,26 +1,19 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { Predictions, TargetId, VesselId } from "./api/types";
-import { Attribution } from "./components/Attribution";
-import { Disclaimer } from "./components/Disclaimer";
 import { HeartViewer } from "./components/HeartViewer";
 import { Honesty } from "./components/Honesty";
-import { PatientForm } from "./components/PatientForm";
-import { RiskSummary } from "./components/RiskSummary";
-import { ShapPanel } from "./components/ShapPanel";
+import { LegalBar } from "./components/LegalBar";
+import { PatientDrawer } from "./components/PatientDrawer";
+import { TargetDetail } from "./components/TargetDetail";
+import { TargetRail } from "./components/TargetRail";
+import { TopBar } from "./components/TopBar";
 import { type Origin, usePatient } from "./hooks/usePatient";
 
-const EXPLAINED_TITLE: Record<TargetId, string> = {
-  Cath: "the model estimates coronary disease",
-  LAD: "the model estimates LAD narrowing",
-  LCX: "the model estimates LCX narrowing",
-  RCA: "the model estimates RCA narrowing",
-};
-
 const ORIGIN_TEXT: Record<Origin, string> = {
-  stored: "Stored result for this example patient. Real patients from the training set, so these scores are optimistic.",
-  live: "Calculated just now by the prediction service for the values in the form below.",
+  stored: "Stored result for this example. These are real patients from the training set, so the scores are optimistic.",
+  live: "Calculated just now by the prediction service for the values in Patient data.",
   fallback: "Prediction service unavailable.",
-  stale: "Inputs edited.",
+  stale: "Inputs edited. Press Estimate risk to update.",
 };
 
 function vesselProbabilities(predictions: Predictions | null) {
@@ -30,65 +23,62 @@ function vesselProbabilities(predictions: Predictions | null) {
 
 export function App() {
   const patient = usePatient();
-  const [selected, setSelected] = useState<TargetId | null>(null);
-  const explained: TargetId = selected ?? "Cath";
-  const vessel: VesselId | null = selected && selected !== "Cath" ? selected : null;
+  const [selected, setSelected] = useState<TargetId>("Cath");
+  const drawer = useRef<HTMLDialogElement>(null);
   const { predictions } = patient;
+  const vessel: VesselId | null = selected === "Cath" ? null : selected;
+
+  const estimate = async () => {
+    await patient.submit();
+    drawer.current?.close();
+  };
 
   return (
-    <div className="app">
-      <a className="skip" href="#patient-data">
-        Skip to patient data
-      </a>
-      <header className="masthead">
-        <h1>CRVP</h1>
-        <p>Coronary disease and per-vessel stenosis estimates from clinical data</p>
-      </header>
+    <div className="shell">
+      <TopBar busy={patient.busy} onOpenData={() => drawer.current?.showModal()} onEstimate={estimate} />
 
-      <section className="example" aria-label="Example patient">
-        <label>
-          <span>Example patient</span>
-          <select value={patient.presetId} onChange={(event) => patient.choosePreset(event.target.value)}>
-            {patient.presets.map((preset) => (
-              <option key={preset.id} value={preset.id}>
-                {preset.label}
-              </option>
-            ))}
-          </select>
-        </label>
-        <p className="example__status" data-origin={patient.origin} aria-live="polite">
-          {ORIGIN_TEXT[patient.origin]}
-        </p>
-        <div aria-live="polite" className="example__notice-slot">
-          {patient.notice && <p className="example__notice">{patient.notice}</p>}
-        </div>
-      </section>
+      <div className="workspace">
+        <aside className="rail" aria-label="Patient and targets">
+          <label className="preset">
+            <span>Example patient</span>
+            <select value={patient.presetId} onChange={(event) => patient.choosePreset(event.target.value)}>
+              {patient.presets.map((preset) => (
+                <option key={preset.id} value={preset.id}>
+                  {preset.label}
+                </option>
+              ))}
+            </select>
+          </label>
+          <p className="rail__status" data-origin={patient.origin} aria-live="polite">
+            {ORIGIN_TEXT[patient.origin]}
+          </p>
+          <div aria-live="polite">{patient.notice && <p className="rail__notice">{patient.notice}</p>}</div>
+          {predictions && <TargetRail predictions={predictions} selected={selected} onSelect={setSelected} />}
+        </aside>
 
-      <main className="stage">
-        <div className="viewer">
+        <main className="canvas">
           <HeartViewer
             probabilities={vesselProbabilities(predictions)}
             selected={vessel}
-            onSelect={setSelected}
+            onSelect={(id) => setSelected(id ?? "Cath")}
           />
-          <p className="viewer__hint">Drag to rotate · click a vessel</p>
-        </div>
-        {predictions && <RiskSummary predictions={predictions} selected={selected} onSelect={setSelected} />}
-      </main>
+          <p className="canvas__hint">Drag to rotate. Click a vessel or a target to explain it.</p>
+        </main>
 
-      {predictions && (
-        <ShapPanel title={EXPLAINED_TITLE[explained]} prediction={predictions[explained]} patient={patient.values} />
-      )}
-      <Honesty />
+        <aside className="detail" aria-label="Selected target">
+          {predictions && <TargetDetail id={selected} prediction={predictions[selected]} patient={patient.values} />}
+          <Honesty />
+        </aside>
+      </div>
 
-      <section className="inputs" id="patient-data" aria-label="Patient data">
-        <h2>Patient data</h2>
-        <p>Edit any value and press Estimate risk. Field names follow the published dataset.</p>
-        <PatientForm values={patient.values} busy={patient.busy} onChange={patient.edit} onSubmit={patient.submit} />
-      </section>
-
-      <Disclaimer />
-      <Attribution />
+      <LegalBar />
+      <PatientDrawer
+        dialogRef={drawer}
+        values={patient.values}
+        busy={patient.busy}
+        onChange={patient.edit}
+        onSubmit={estimate}
+      />
     </div>
   );
 }

@@ -24,11 +24,14 @@ export const CONTEXT_FILES = ["FMA4685"];
 
 export const stlUrl = (file: string): string => `${ANATOMY_DIR}${file}.stl`;
 
-export const UNSCORED_COLOUR = "#6b6f78";
+export const UNSCORED_COLOUR = "#b8a99a";
+export const UNSELECTED_COLOUR = "#c9bcae";
 
-// One-hue sequential ramp (OKLCH hue 50, lightness 0.50 to 0.78), validated for monotone
-// lightness and contrast on the dark ground. Lightness carries the value, so it survives colour blindness.
-const SCALE_STOPS = ["#9c4803", "#ba5703", "#d96603", "#f37c2b", "#ff9b60"].map((hex) => new Color(hex));
+export const HEART_FILE = "FMA7274_heartwall";
+
+// Sequential ramp on the cream ground: ochre to terracotta to crimson. The low end is deliberately
+// darker than pale sand (#F0DCC8, 1.23:1 on the ground) so it clears the 2:1 ordinal floor.
+const SCALE_STOPS = ["#dca476", "#c95a37", "#9b2c2c"].map((hex) => new Color(hex));
 
 export const SCALE_GRADIENT = `linear-gradient(90deg, ${SCALE_STOPS.map((c) => `#${c.getHexString()}`).join(", ")})`;
 

@@ -1,7 +1,7 @@
 export function Honesty() {
   return (
     <section className="honesty" aria-label="How to read these results">
-      <h2>How to read these results</h2>
+      <h3>How to read these results</h3>
       <ul>
         <li>
           <strong>No input localises disease to an artery.</strong> The model never sees where a narrowing sits. Differences

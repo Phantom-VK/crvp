@@ -3,7 +3,6 @@ import { BLOCK_TITLES, type PatientValues, describeValue, featureLabel } from ".
 import { percent } from "../data/vessels";
 
 interface Props {
-  title: string;
   prediction: TargetPrediction;
   patient: PatientValues;
 }
@@ -85,7 +84,7 @@ function Bar({ step, domain }: { step: Step; domain: [number, number] }) {
   );
 }
 
-export function ShapPanel({ title, prediction, patient }: Props) {
+export function ShapPanel({ prediction, patient }: Props) {
   const probability = isProbability(prediction);
   const rows = steps(prediction, patient);
   const path = [prediction.base_value, prediction.raw_score, ...rows.flatMap((r) => [r.start, r.end])];
@@ -93,11 +92,11 @@ export function ShapPanel({ title, prediction, patient }: Props) {
   const domain: [number, number] = [Math.max(0, Math.min(...path) - pad), Math.max(...path) + pad];
   const at = (v: number) => `${((v - domain[0]) / (domain[1] - domain[0])) * 100}%`;
   return (
-    <section className="shap" aria-label={`Why the model says ${title}`}>
-      <h2>Why {title}</h2>
+    <section className="shap" aria-label="Why the model says this">
+      <h3>What moved the estimate</h3>
       <p className="shap__lead">
         Starting from the average patient ({plain(prediction.base_value, probability)}), each factor moves the model&apos;s
-        score up (orange) or down (blue). {probability ? "Distances are in percentage points of probability." : "Distances are in log-odds."}{" "}
+        score up (terracotta) or down (blue). {probability ? "Distances are in percentage points of probability." : "Distances are in log-odds."}{" "}
         Thin lines show how much each contribution varies across model refits.
       </p>
       <ol className="shap__rows">

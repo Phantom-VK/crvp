@@ -1,6 +1,6 @@
 export function Attribution() {
   return (
-    <footer className="attribution">
+    <div className="attribution">
       <p>
         BodyParts3D, © The Database Center for Life Science, licensed under{" "}
         <a href="https://creativecommons.org/licenses/by-sa/2.1/jp/deed.en" target="_blank" rel="noreferrer">
@@ -15,6 +15,6 @@ export function Attribution() {
         </a>{" "}
         (UCI, CC BY 4.0).
       </p>
-    </footer>
+    </div>
   );
 }

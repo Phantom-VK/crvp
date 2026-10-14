@@ -17,7 +17,7 @@ export interface PatientState {
   busy: boolean;
   choosePreset: (id: string) => void;
   edit: (name: string, value: string | number) => void;
-  submit: () => void;
+  submit: () => Promise<void>;
 }
 
 function toRequest(values: PatientValues): PatientValues {
