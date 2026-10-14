@@ -1,12 +1,23 @@
 import { Html, useCursor } from "@react-three/drei";
 import { type ThreeEvent, useLoader } from "@react-three/fiber";
 import { useMemo, useState } from "react";
-import { type BufferGeometry, Box3, Vector3 } from "three";
+import { type BufferGeometry, BackSide, Box3, type WebGLProgramParametersWithUniforms, Vector3 } from "three";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
 import { UNSCORED_COLOUR, UNSELECTED_COLOUR, percent, riskColour, stlUrl, type VesselSpec } from "../data/vessels";
 import { smooth } from "./geometry";
 
 const CLICK_DRAG_TOLERANCE_PX = 4;
+const OUTLINE_MM = 0.45;
+const OUTLINE_INK = "#2a2320";
+
+// Inverted-hull outline: the back faces are pushed out along their normals so a thin dark edge frames each
+// vessel, keeping any risk colour legible against the muscle and fat behind it.
+function inflate(shader: WebGLProgramParametersWithUniforms): void {
+  shader.vertexShader = shader.vertexShader.replace(
+    "#include <begin_vertex>",
+    `#include <begin_vertex>\ntransformed += normalize(objectNormal) * ${OUTLINE_MM.toFixed(2)};`,
+  );
+}
 
 interface ArteryMeshProps {
   vessel: VesselSpec;
@@ -51,17 +62,29 @@ export function ArteryMesh({ vessel, probability, selected, anySelected, onSelec
       onPointerOut={() => setHovered(false)}
     >
       {geometries.map((geometry, index) => (
-        <mesh key={vessel.files[index]} geometry={geometry} renderOrder={2}>
-          <meshStandardMaterial
-            color={colour}
-            emissive={colour}
-            emissiveIntensity={emphasis}
-            roughness={0.5}
-            metalness={0.05}
-            transparent={opacity < 1}
-            opacity={opacity}
-          />
-        </mesh>
+        <group key={vessel.files[index]}>
+          <mesh geometry={geometry} renderOrder={1}>
+            <meshStandardMaterial
+              color={OUTLINE_INK}
+              roughness={1}
+              side={BackSide}
+              transparent={opacity < 1}
+              opacity={opacity}
+              onBeforeCompile={inflate}
+            />
+          </mesh>
+          <mesh geometry={geometry} renderOrder={2}>
+            <meshStandardMaterial
+              color={colour}
+              emissive={colour}
+              emissiveIntensity={emphasis}
+              roughness={0.5}
+              metalness={0.05}
+              transparent={opacity < 1}
+              opacity={opacity}
+            />
+          </mesh>
+        </group>
       ))}
       <Html position={anchor} center zIndexRange={[10, 0]} style={{ pointerEvents: "none" }}>
         <span className={`vessel-tag${selected ? " vessel-tag--selected" : ""}`}>

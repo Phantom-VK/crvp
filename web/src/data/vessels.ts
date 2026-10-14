@@ -25,7 +25,7 @@ export const CONTEXT_FILES = ["FMA4685"];
 export const stlUrl = (file: string): string => `${ANATOMY_DIR}${file}.stl`;
 
 export const UNSCORED_COLOUR = "#b8a99a";
-export const UNSELECTED_COLOUR = "#c9bcae";
+export const UNSELECTED_COLOUR = "#cdb4a8";
 
 export const HEART_FILE = "FMA7274_heartwall";
 

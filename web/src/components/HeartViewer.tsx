@@ -1,13 +1,13 @@
 import { Bounds, OrbitControls } from "@react-three/drei";
 import { Canvas, useLoader } from "@react-three/fiber";
 import { Suspense, useMemo, useRef, useState } from "react";
-import { DoubleSide, MeshStandardMaterial } from "three";
+import { MeshStandardMaterial } from "three";
+import { HeartWall, HEART_CENTRE } from "./HeartWall";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader.js";
 import type { VesselId } from "../api/types";
-import { CONTEXT_FILES, HEART_FILE, VESSELS, stlUrl } from "../data/vessels";
+import { CONTEXT_FILES, VESSELS, stlUrl } from "../data/vessels";
 import { ArteryMesh } from "./ArteryMesh";
 import { CameraRig, type ViewApi } from "./CameraRig";
-import { smooth } from "./geometry";
 import { ViewTools } from "./ViewTools";
 
 interface HeartViewerProps {
@@ -31,41 +31,28 @@ function CoronaryStem() {
   );
 }
 
-// Context only: not a prediction target, so it has no handlers and never takes part in picking.
-function HeartWall() {
-  const [raw] = useLoader(STLLoader, [stlUrl(HEART_FILE)]);
-  const geometry = useMemo(() => smooth(raw), [raw]);
-  return (
-    <mesh geometry={geometry} renderOrder={1} raycast={() => null}>
-      <meshStandardMaterial
-        color="#e3c8b8"
-        roughness={0.9}
-        metalness={0}
-        transparent
-        opacity={0.3}
-        depthWrite={false}
-        side={DoubleSide}
-      />
-    </mesh>
-  );
-}
+// The heart is centred on the origin by Anatomy, then rotated. BodyParts3D is Z-up and its heart lies oblique. This quaternion was computed from the meshes: the
+// apex-to-base axis (apex = wall point farthest from the coronary stem) maps to +Y, and the LAD's
+// direction from the heart centre, taken perpendicular to that axis, maps to +Z towards the camera.
+const HEART_UPRIGHT: [number, number, number, number] = [-0.43164, -0.23273, -0.38365, 0.78252];
 
-// BodyParts3D is Z-up with anterior at -Y; rotating -90° about X puts the heart upright, facing the camera.
 function Anatomy({ probabilities, selected, onSelect }: HeartViewerProps) {
   return (
-    <group rotation={[-Math.PI / 2, 0, 0]}>
-      <HeartWall />
-      <CoronaryStem />
-      {VESSELS.map((vessel) => (
-        <ArteryMesh
-          key={vessel.id}
-          vessel={vessel}
-          probability={probabilities[vessel.id] ?? null}
-          selected={selected === vessel.id}
-          anySelected={selected !== null}
-          onSelect={onSelect}
-        />
-      ))}
+    <group quaternion={HEART_UPRIGHT}>
+      <group position={HEART_CENTRE.clone().negate()}>
+        <HeartWall />
+        <CoronaryStem />
+        {VESSELS.map((vessel) => (
+          <ArteryMesh
+            key={vessel.id}
+            vessel={vessel}
+            probability={probabilities[vessel.id] ?? null}
+            selected={selected === vessel.id}
+            anySelected={selected !== null}
+            onSelect={onSelect}
+          />
+        ))}
+      </group>
     </group>
   );
 }
@@ -84,7 +71,7 @@ export function HeartViewer(props: HeartViewerProps) {
         <directionalLight position={[120, 160, 200]} intensity={2} />
         <directionalLight position={[-160, -40, -120]} intensity={0.8} />
         <Suspense fallback={null}>
-          <Bounds fit clip observe margin={1.15}>
+          <Bounds fit clip observe margin={0.95}>
             <Anatomy {...props} />
             <CameraRig apiRef={view} />
           </Bounds>
