@@ -79,12 +79,37 @@ def test_separable_data_is_learned(separable, config, algorithm):
     assert sum(fold["roc_auc"] for fold in result.folds) / len(result.folds) > 0.95
 
 
+def _result(name, aucs):
+    return CvResult(name, [{"roc_auc": auc} for auc in aucs], [])
+
+
 def test_select_best_picks_highest_mean_metric():
-    results = {
-        "low": CvResult("low", [{"roc_auc": 0.6}, {"roc_auc": 0.7}], []),
-        "high": CvResult("high", [{"roc_auc": 0.9}, {"roc_auc": 0.7}], []),
-    }
+    results = {"low": _result("low", [0.6, 0.7]), "high": _result("high", [0.9, 0.7])}
     assert select_best(results, "roc_auc") == "high"
+
+
+def test_select_best_prefers_earlier_algorithm_within_one_standard_error():
+    results = {
+        "first": _result("first", [0.70, 0.80, 0.75]),
+        "second": _result("second", [0.72, 0.82, 0.77]),
+    }
+    assert select_best(results, "roc_auc") == "first"
+
+
+def test_select_best_ignores_earlier_algorithm_outside_the_band():
+    results = {
+        "first": _result("first", [0.60, 0.70, 0.65]),
+        "second": _result("second", [0.72, 0.82, 0.77]),
+    }
+    assert select_best(results, "roc_auc") == "second"
+
+
+def test_zero_tolerance_restores_plain_argmax():
+    results = {
+        "first": _result("first", [0.70, 0.80, 0.75]),
+        "second": _result("second", [0.72, 0.82, 0.77]),
+    }
+    assert select_best(results, "roc_auc", tolerance_se=0.0) == "second"
 
 
 def test_train_target_report_lists_every_algorithm(bundle_and_report):

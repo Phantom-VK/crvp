@@ -73,17 +73,28 @@ def cross_validate(
     return CvResult(algorithm, [m for m, _ in fits], [model for _, model in fits])
 
 
-def select_best(results: dict[str, CvResult], metric: str) -> str:
-    """Pick the algorithm with the highest mean cross-validated metric.
+def select_best(results: dict[str, CvResult], metric: str, tolerance_se: float = 1.0) -> str:
+    """Pick an algorithm by the one-standard-error rule.
+
+    The best mean wins unless an earlier-listed algorithm scores within ``tolerance_se``
+    standard errors of it, in which case the earlier one is preferred. On 303 rows a gap
+    that small is noise, and the rule also tempers the optimism of choosing a maximum on
+    the same folds that are reported. Folds overlap, so the standard error is a lower bound.
 
     Args:
-        results: Cross-validation results keyed by algorithm.
+        results: Cross-validation results keyed by algorithm, in preference order.
         metric: Metric name, e.g. ``"roc_auc"``.
+        tolerance_se: Width of the tie band in standard errors of the best algorithm.
 
     Returns:
-        The winning algorithm's name.
+        The selected algorithm's name.
     """
-    return max(results, key=lambda name: np.mean([fold[metric] for fold in results[name].folds]))
+    scores = {name: [fold[metric] for fold in r.folds] for name, r in results.items()}
+    means = {name: float(np.mean(values)) for name, values in scores.items()}
+    best = max(means, key=means.__getitem__)
+    standard_error = np.std(scores[best]) / np.sqrt(len(scores[best]))
+    floor = means[best] - tolerance_se * standard_error
+    return next(name for name in results if means[name] >= floor)
 
 
 def train_target(
@@ -101,7 +112,7 @@ def train_target(
         The trained bundle and this target's section of the metrics report.
     """
     results = {name: cross_validate(name, x, y, config) for name in ALGORITHMS}
-    best = select_best(results, config["selection_metric"])
+    best = select_best(results, config["selection_metric"], config["selection_tolerance_se"])
     final = build_calibrated(best, config).fit(x, y)
     bundle = TargetBundle(target, best, tuple(x.columns), final, results[best].models)
     report = {

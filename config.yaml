@@ -14,6 +14,7 @@ dataset:
 
 decision_threshold: 0.5
 selection_metric: roc_auc
+selection_tolerance_se: 1.0
 
 calibration:
   method: sigmoid
