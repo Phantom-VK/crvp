@@ -8,8 +8,8 @@ import { smooth } from "./geometry";
 // BodyParts3D places the heart about 1.2 m from the origin; this is the wall mesh's centroid.
 export const HEART_CENTRE = new Vector3(16.2, -121.9, 1235.5);
 
-// The arteries run slightly inside the wall mesh, so it is shrunk about its own centre until they emerge.
-const WALL_SCALE = 0.94;
+// The wall is rendered at true size; the arteries are lifted off it in ArteryMesh instead.
+const WALL_SCALE = 1;
 
 // Colours follow clinical photographs and anatomical atlases: myocardium is a deep reddish-brown
 // (myoglobin) and epicardial fat is a creamy yellow that collects along the coronary grooves and the base.
